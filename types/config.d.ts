@@ -1,18 +1,27 @@
 declare namespace Config {
-  interface app {
+  interface Application {
+    app: App
+    database: Database
+    redis: Redis
+  }
+
+  interface App {
     prefix: string
     port: number
   }
 
-  interface dataBase {
+  interface Database {
+    host?: string
+    port?: number
+    username?: string
+    password?: string
+    database?: string
   }
 
-  interface redis {
-  }
-
-  interface jwt {
-  }
-
-  interface upload {
+  interface Redis {
+    host?: string
+    port?: number
+    password?: string
+    db?: number
   }
 }

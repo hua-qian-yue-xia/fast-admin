@@ -1,2 +1,12 @@
-database: 2
+database:
+  host: 127.0.0.1
+  port: 3302
+  username: root
+  password: root
+  database: fast-nest-admin
 
+redis:
+  host: 127.0.0.1
+  port: 6371
+  password:
+  db: 0
