@@ -13,6 +13,9 @@
     
     - lodash:工具函数
     - @types/lodash:lodash类型声明
+    
+    - ioredis:redis驱动
+    - @liaoliaots/nestjs-redis:nest redis 工具
 ```
 
 
