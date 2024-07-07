@@ -29,6 +29,7 @@
     "@nestjs/platform-fastify": "^10.3.10",
     "cross-env": "^7.0.3",
     "ioredis": "^5.4.1",
+    "ip2region": "^2.3.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "mysql2": "^3.10.2",

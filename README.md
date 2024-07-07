@@ -18,6 +18,9 @@
     - @liaoliaots/nestjs-redis:nest redis 工具
     
     - @nestjs/jwt:nest jwt
+    - passport-jwt:jwt工具类
+    
+    - ip2region:解析ip地址
 ```
 
 

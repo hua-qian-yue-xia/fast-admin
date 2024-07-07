@@ -32,6 +32,9 @@ dependencies:
   ioredis:
     specifier: ^5.4.1
     version: 5.4.1
+  ip2region:
+    specifier: ^2.3.0
+    version: 2.3.0(@types/node@20.14.9)
   js-yaml:
     specifier: ^4.1.0
     version: 4.1.0
@@ -3341,6 +3344,14 @@ packages:
       standard-as-callback: 2.1.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /ip2region@2.3.0(@types/node@20.14.9):
+    resolution: {integrity: sha512-zV5Xsadzrx9Ej6heoyhbXMsfGWWQ3C6bAIYStrHhw9kzLpGpVNlnAyRBxxPgxA1GNqr1Ti7oUxcWsMWNN3jZBg==, tarball: https://registry.npmmirror.com/ip2region/-/ip2region-2.3.0.tgz}
+    peerDependencies:
+      '@types/node': '*'
+    dependencies:
+      '@types/node': 20.14.9
     dev: false
 
   /ipaddr.js@1.9.1:
