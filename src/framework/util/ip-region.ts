@@ -3,7 +3,6 @@ import { Global, Injectable, Module } from '@nestjs/common'
 
 @Global()
 @Module({ providers: [IpRegion], exports: [IpRegion] })
-@Injectable
 export class IpRegion {
   private query: IP2Region
   constructor() {

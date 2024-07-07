@@ -9,6 +9,7 @@ async function bootstrap() {
   const config: ConfigService<Config.Application> = app.get(ConfigService)
   const appConfig = config.get<Config.App>('app')
   app.setGlobalPrefix(appConfig.prefix)
+
   await app.listen(appConfig.port)
 }
 

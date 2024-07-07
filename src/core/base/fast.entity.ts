@@ -1,6 +1,5 @@
 import { BaseEntity, Column, Entity } from 'typeorm'
 
-
 @Entity()
 export class FastEntity extends BaseEntity {
   @Column({ comment: '创建人' })
