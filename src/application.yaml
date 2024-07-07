@@ -1,3 +1,7 @@
 app:
   prefix: /
   port: 7001
+
+jwt:
+  secret: mfyhntxmEB1ykNTrD0pWceShkR0wKTa3
+  expires: 60

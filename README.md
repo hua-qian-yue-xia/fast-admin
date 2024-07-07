@@ -16,6 +16,8 @@
     
     - ioredis:redis驱动
     - @liaoliaots/nestjs-redis:nest redis 工具
+    
+    - @nestjs/jwt:nest jwt
 ```
 
 

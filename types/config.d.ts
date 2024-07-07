@@ -3,6 +3,7 @@ declare namespace Config {
     app: App
     database: Database
     redis: Redis
+    jwt: Jwt
   }
 
   interface App {
@@ -23,5 +24,10 @@ declare namespace Config {
     port?: number
     password?: string
     db?: number
+  }
+  interface Jwt {
+    secret?: string
+    // 过期时间单位分钟
+    expires?: number
   }
 }
