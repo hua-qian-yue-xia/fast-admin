@@ -1,12 +1,14 @@
 import { RedisModule } from '@liaoliaots/nestjs-redis'
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { RedisService } from './redis/redis.service'
 
 @Module({
   imports: [
     RedisModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
+      extraProviders: [RedisService],
       useFactory: (config: ConfigService) => {
         const { host, port, password, db } = config.get<Config.Redis>('redis')
         return {
@@ -21,5 +23,4 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
     }),
   ],
 })
-export class CacheModule {
-}
+export class CacheModule {}
