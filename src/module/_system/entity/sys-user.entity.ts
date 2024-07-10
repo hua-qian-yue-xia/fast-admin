@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-import { FastEntity } from '../../../core/base/fast.entity'
+import { FastEntity } from '../../../core/base/entity/fast.entity'
 
 @Entity()
 export class SysUserEntity extends FastEntity {

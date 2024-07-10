@@ -11,6 +11,7 @@ export class AuthGuard implements CanActivate {
   canActivate(ctx: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const req = ctx.switchToHttp().getRequest()
     const { ip, url } = req
+    // 装饰器白名单
     const routerWhiteList = this.routerWhiteService.whiteList
     if (routerWhiteList.includes(url)) return true
     return false
