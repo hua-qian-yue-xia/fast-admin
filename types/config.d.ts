@@ -9,6 +9,8 @@ declare namespace Config {
   interface App {
     prefix: string
     port: number
+    // 平台header
+    platformHeader: string
   }
 
   interface Database {
@@ -29,5 +31,7 @@ declare namespace Config {
     secret?: string
     // 过期时间单位分钟
     expires?: number
+    // jwt-header
+    header?: string
   }
 }

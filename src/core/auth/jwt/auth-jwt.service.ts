@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { LoginUser } from '../../base/user/login-user'
 import { JwtService } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
+import { nanoid } from 'nanoid/non-secure'
+
 import { RedisService } from '../../cache/redis/redis.service'
+import { LoginUser } from '../../base/user/login-user'
 
 @Injectable()
 export class AuthJwtService {
@@ -17,8 +19,7 @@ export class AuthJwtService {
    * @param claims 用户登录信息
    */
   async createToken<T extends LoginUser>(claims: T): Promise<string> {
-    const token = '1'
-    claims.token = token
+    claims.token = nanoid(32)
     await this.refreshToken(claims)
     return this.jwtService.sign(claims)
   }
@@ -44,5 +45,13 @@ export class AuthJwtService {
   parseToken<T extends LoginUser>(token: string): T {
     const payload = this.jwtService.verify(token)
     return JSON.stringify(payload) as T
+  }
+
+  /**
+   * 获取token
+   * @param tokenKey
+   */
+  getToken(tokenKey?: string): null | string {
+    if (!tokenKey) return null
   }
 }

@@ -1,7 +1,10 @@
 app:
   prefix: /
   port: 7001
+  platform-header: platform
 
 jwt:
   secret: mfyhntxmEB1ykNTrD0pWceShkR0wKTa3
   expires: 60
+  header: Authorization
+
