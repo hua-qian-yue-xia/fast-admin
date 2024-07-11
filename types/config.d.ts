@@ -31,7 +31,7 @@ declare namespace Config {
     secret?: string
     // 过期时间单位分钟
     expires?: number
-    // jwt-header
+    // jwt.const.ts-header
     header?: string
   }
 }

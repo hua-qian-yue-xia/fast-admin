@@ -24,10 +24,11 @@ export class AuthGuard implements CanActivate {
     const { platformHeader } = this.configService.get<Config.App>('app')
     const { header } = this.configService.get<Config.Jwt>('jwt')
     const platform = req.headers[platformHeader]
-    if (!platform) {
-      return false
-    }
-    this.authJwtService.getToken(req.headers[header])
+    if (!platform) return false
+    const currentUser = this.authJwtService.getLoginUser(platform, req.headers[header])
+    if (currentUser) return false
+    // 存入ctx
+    // req.context.loginUser = currentUser
     return false
   }
 }

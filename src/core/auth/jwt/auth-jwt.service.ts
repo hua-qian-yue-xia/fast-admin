@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid/non-secure'
 
 import { RedisService } from '../../cache/redis/redis.service'
 import { LoginUser } from '../../base/user/login-user'
+import { JwtConst } from '../../constant/index'
 
 @Injectable()
 export class AuthJwtService {
@@ -12,7 +13,8 @@ export class AuthJwtService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService<Config.Application>,
     private readonly redisService: RedisService,
-  ) {}
+  ) {
+  }
 
   /**
    * 创建token
@@ -34,7 +36,7 @@ export class AuthJwtService {
     const expireTime = expires * 1000
     user.loginTime = Date.now()
     user.expireTime = user.loginTime + expireTime
-    const key = `${user.platform}:${user.token}`
+    const key = this.getRedisKey(user.platform, user.token)
     await this.redisService.set(key, JSON.stringify(user), expireTime)
   }
 
@@ -53,5 +55,23 @@ export class AuthJwtService {
    */
   getToken(tokenKey?: string): null | string {
     if (!tokenKey) return null
+    if (tokenKey.startsWith(JwtConst.JwtHeaderPrefix)) {
+      return tokenKey.replace(JwtConst.JwtHeaderPrefix, '')
+    }
+    return tokenKey
+  }
+
+  async getLoginUser<T extends LoginUser>(platform: string, key: string): Promise<T | null> {
+    const tokenKey = this.getToken(key)
+    if (!tokenKey) return
+    const token = this.jwtService.verify(tokenKey)
+    const redisKey = this.getRedisKey(platform, token)
+    const user = await this.redisService.get(redisKey)
+    if (!user) return null
+    return JSON.parse(user) as T
+  }
+
+  getRedisKey(platform: string, key: string) {
+    return `auth:${platform}:${key}`
   }
 }
