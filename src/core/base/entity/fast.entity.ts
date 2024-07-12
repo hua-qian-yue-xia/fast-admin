@@ -6,13 +6,13 @@ export class FastEntity extends BaseEntity {
   createBy: string
 
   @Column({ comment: '操作人' })
-  updateBy: string
+  updateBy?: string
 
   @Column({ comment: '创建时间' })
   createTime: Date
 
   @Column({ comment: '操作时间' })
-  updateTime: Date
+  updateTime?: Date
 
   @Column({ comment: '是否删除' })
   delFlag: boolean

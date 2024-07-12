@@ -13,8 +13,7 @@ export class AuthJwtService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService<Config.Application>,
     private readonly redisService: RedisService,
-  ) {
-  }
+  ) {}
 
   /**
    * 创建token

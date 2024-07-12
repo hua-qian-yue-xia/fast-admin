@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
     if (!platform) return false
     const currentUser = this.authJwtService.getLoginUser(platform, req.headers[header])
     if (currentUser) return false
-    // 存入ctx
+    // 把用户存入ctx
     // req.context.loginUser = currentUser
     return false
   }
