@@ -1,10 +1,16 @@
 app:
+  name: nest快速开发平台
+  description: 一个node的快速开放平台
+  version: 0.1.0
   prefix: /
   port: 7001
-  platform-header: platform
+  platformHeader: platform
 
 jwt:
   secret: mfyhntxmEB1ykNTrD0pWceShkR0wKTa3
   expires: 60
   header: Authorization
+
+swagger:
+  pathPrefix: /swagger
 
