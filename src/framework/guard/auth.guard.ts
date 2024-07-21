@@ -23,9 +23,9 @@ export class AuthGuard implements CanActivate {
     if (routerWhiteList.includes(url)) return true
     const { platformHeader } = this.configService.get<Config.App>('app')
     const { header } = this.configService.get<Config.Jwt>('jwt')
-    const platform = req.headers[platformHeader]
+    const platform = req.headers[platformHeader] as string
     if (!platform) return false
-    const currentUser = this.authJwtService.getLoginUser(platform, req.headers[header])
+    const currentUser = this.authJwtService.getLoginUser(platform, req.headers[header] as string)
     if (currentUser) return false
     // 把用户存入ctx
     // req.context.loginUser = currentUser

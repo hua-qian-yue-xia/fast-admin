@@ -1,28 +1,27 @@
-import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
-import { ConfigService } from '@nestjs/config'
-import { Module } from '@nestjs/common'
-import { DataSource } from 'typeorm'
+import {ConfigModule, ConfigService} from '@nestjs/config'
+import {Module} from '@nestjs/common'
+import {TypeOrmModule} from '@nestjs/typeorm'
 
-export const setupMysqlDataBase = (): Provider => {
-  return {
-    provide: 'DATA_SOURCE',
+function setupMysql() {
+  return TypeOrmModule.forRootAsync({
+    imports: [ConfigModule],
     inject: [ConfigService],
     useFactory: (config: ConfigService) => {
-      const { host, port, username, password, database } = config.get<Config.Database>('database')
-      const dataSource = new DataSource({
+      const {host, port, username, password, database} = config.get<Config.Database>('database')
+      return {
         type: 'mysql',
         host: host,
         port: port,
         username: username,
         password: password,
         database: database,
-      })
-      return dataSource.initialize()
+        synchronize: true,
+        entities: ['dist/**/*.entity.{ts,js}'],
+        autoLoadEntities: true,
+      }
     },
-  }
+  })
 }
 
-export const dataBaseProviders = [setupMysqlDataBase()]
-
-@Module({ providers: [...dataBaseProviders], exports: [...dataBaseProviders] })
+@Module({imports: [setupMysql()]})
 export class DataBaseModule {}

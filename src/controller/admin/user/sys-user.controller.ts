@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common'
-import { Anonymous } from '../../../framework/decorators/anonymous'
+import { Anonymous } from '../../../framework/decorators/req/anonymous'
 
 @Controller('/admin/user')
 export class SysUserController {

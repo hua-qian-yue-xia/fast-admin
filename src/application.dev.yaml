@@ -3,7 +3,7 @@ database:
   port: 3302
   username: root
   password: root
-  database: fast-nest-admin
+  database: fast-admin
 
 redis:
   host: 127.0.0.1

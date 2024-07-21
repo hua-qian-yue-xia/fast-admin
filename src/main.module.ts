@@ -8,6 +8,7 @@ import { adminRouter } from './controller/router'
 import { InitModule } from './framework/init'
 import { AuthGuard } from './framework/guard/auth.guard'
 import { APP_GUARD } from '@nestjs/core'
+import { SetupDecoratorModule } from './framework/decorators'
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { APP_GUARD } from '@nestjs/core'
     DataBaseModule,
     AuthModule,
     InitModule,
+    SetupDecoratorModule,
   ],
   controllers: [...adminRouter],
   providers: [

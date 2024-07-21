@@ -2,7 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common'
 import { DiscoveryService, Reflector } from '@nestjs/core'
 import { MetadataScanner } from '@nestjs/core/metadata-scanner'
 import { PATH_METADATA } from '@nestjs/common/constants'
-import { ANONYMOUS } from '../decorators/anonymous'
+import { ANONYMOUS } from '../decorators/req/anonymous'
 
 @Injectable()
 export class RouterWhiteService implements OnModuleInit {

@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class SysUserService {}
+export class SysUserService {
+  create() {}
+}

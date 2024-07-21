@@ -1,11 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-import { FastEntity } from '../../../core/base/entity/fast.entity'
-
-@Entity()
-export class SysUserRoleEntity {
-  @Column({ comment: '角色id' })
+import {Entity, Index, PrimaryColumn} from 'typeorm'
+@Entity('sys_user_dept', {name: '用户部门关联表'})
+export class SysUserDeptEntity {
+  @Index()
+  @PrimaryColumn({comment: '角色id'})
   roleId: number
 
-  @Column({ comment: '部门id' })
+  @Index()
+  @PrimaryColumn({comment: '部门id'})
   deptId: number
 }
