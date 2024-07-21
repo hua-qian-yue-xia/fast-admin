@@ -1,13 +1,19 @@
-import {Controller, Get} from '@nestjs/common'
-import {Log, LogOption} from '../../../framework/decorators/req/log'
-import {Anonymous} from '../../../framework/decorators/req/anonymous'
+import { Controller, Param, Req } from '@nestjs/common'
+import {ApiTags} from '@nestjs/swagger'
+import {AspenGet} from '../../../framework/decorators/req/aspen-req.decorators'
+import { AspenRateLimit } from '../../../framework/decorators'
 
+@ApiTags('操作日志')
 @Controller('/admin/common/chang-log')
 export class ChangeLogController {
-  @Log({summary: '测试'})
-  @Get('/list')
-  @Anonymous()
-  list() {
+  @AspenGet({
+    path: '/list',
+    summary: '查询操作日志列表',
+    isLog: true,
+    isAnonymous: true,
+  })
+  @AspenRateLimit()
+  list(@Param() id: string) {
     return 'list'
   }
 }

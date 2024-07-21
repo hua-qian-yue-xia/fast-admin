@@ -1,5 +1,8 @@
-import { Delete, Get, HttpCode, Patch, Post, Put, applyDecorators } from '@nestjs/common'
-import { ApiOperation, ApiResponse } from '@nestjs/swagger'
+import {Delete, Get, HttpCode, Patch, Post, Put, applyDecorators} from '@nestjs/common'
+import {ApiOperation, ApiResponse} from '@nestjs/swagger'
+import {Log, LogOption} from './log'
+import {SysLogType} from '../../constant/sys-constant'
+import {Anonymous} from './anonymous.decorators'
 
 export enum Method {
   Get = 'GET',
@@ -36,20 +39,61 @@ export type AspenReqOption = {
    */
   method?: Method
   /**
-   * @summary 是否生成日志信息
-   * @default true
+   * 是否生成日志信息
+   * @default false
    */
-  isLogger?: boolean
+  isLog?: boolean
   /**
-   * @summary 是否生成接口文档
+   * 日志配置
+   */
+  logOption?: Omit<LogOption, 'summary'>
+  /**
+   * 是否生成接口文档
    * @default true
    */
   isDoc?: boolean
+  /**
+   * 是否匿名访问不鉴权
+   * @default false
+   */
+  isAnonymous?: boolean
 }
 
-export const AspenReq = (options: AspenReqOption) => {
-  const { summary, description, method, path } = options
-  const list = [ApiOperation({ summary: summary, description: description }), MethodMap[method](path), HttpCode(200)]
+export type DocOption = {}
 
+export const AspenReq = (options: AspenReqOption) => {
+  const {summary, description = '', method, path, isLog = false, isAnonymous = false, isDoc = true, logOption} = options
+  const list = [MethodMap[method](path), HttpCode(200)]
+  if (isLog) {
+    const logOptions: LogOption = {
+      summary: summary,
+      isSaveRequestData: logOption?.isSaveRequestData ?? true,
+      isSaveResponseData: logOption?.isSaveResponseData ?? true,
+      type: logOption?.type ?? SysLogType.OTHER,
+    }
+    list.push(Log(logOptions))
+  }
+  if (isAnonymous) {
+    list.push(Anonymous())
+  }
+  if (isDoc) {
+    list.push(ApiOperation({summary: summary, description: description}))
+  }
   return applyDecorators(...list)
+}
+
+export const AspenGet = (options: Omit<AspenReqOption, 'method'>) => {
+  return AspenReq({method: 'GET', ...options} as AspenReqOption)
+}
+
+export const AspenPost = (options: Omit<AspenReqOption, 'method'>) => {
+  return AspenReq({method: 'POST', ...options} as AspenReqOption)
+}
+
+export const AspenPut = (options: Omit<AspenReqOption, 'method'>) => {
+  return AspenReq({method: 'PUT', ...options} as AspenReqOption)
+}
+
+export const AspenDelete = (options: Omit<AspenReqOption, 'method'>) => {
+  return AspenReq({method: 'DELETE', ...options} as AspenReqOption)
 }

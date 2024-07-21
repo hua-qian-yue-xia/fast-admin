@@ -1,4 +1,6 @@
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
+import {SysLogType} from '../../../framework/constant/sys-constant'
+import {HttpStatusConstant} from '../../../framework/constant/http-constant'
 
 @Entity('com_change_log', {name: '操作日志表'})
 export class ComChangLogEntity {
@@ -9,7 +11,7 @@ export class ComChangLogEntity {
   logTitle: string
 
   @Column({name: 'log_type', comment: '日志类型'})
-  logType: string
+  logType: SysLogType
 
   @Column({name: 'user_id', nullable: true, comment: '用户id'})
   userId?: number
@@ -29,7 +31,7 @@ export class ComChangLogEntity {
   @Column({name: 'req_location', comment: '请求位置'})
   reqLocation: string
 
-  @Column({name: 'req_json', comment: '请求json'})
+  @Column({name: 'req_json', nullable: true, comment: '请求json'})
   reqJson: string
 
   @Column({name: 'res_json', nullable: true, comment: '返回json'})
@@ -39,7 +41,7 @@ export class ComChangLogEntity {
   errorJson?: string
 
   @Column({name: 'status', comment: '请求状态'})
-  status: string
+  status: HttpStatusConstant
 
   @Column({name: 'create_time', comment: '创建时间'})
   createTime: Date

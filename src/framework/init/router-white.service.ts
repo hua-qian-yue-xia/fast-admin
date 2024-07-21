@@ -1,8 +1,8 @@
-import { Injectable, OnModuleInit } from '@nestjs/common'
-import { DiscoveryService, Reflector } from '@nestjs/core'
-import { MetadataScanner } from '@nestjs/core/metadata-scanner'
-import { PATH_METADATA } from '@nestjs/common/constants'
-import { ANONYMOUS } from '../decorators/req/anonymous'
+import {Injectable, OnModuleInit} from '@nestjs/common'
+import {DiscoveryService, Reflector} from '@nestjs/core'
+import {MetadataScanner} from '@nestjs/core/metadata-scanner'
+import {PATH_METADATA} from '@nestjs/common/constants'
+import {ANONYMOUS} from '../decorators/req/anonymous.decorators'
 
 @Injectable()
 export class RouterWhiteService implements OnModuleInit {
@@ -24,7 +24,7 @@ export class RouterWhiteService implements OnModuleInit {
       .filter(wrapper => wrapper.isDependencyTreeStatic())
       .filter(wrapper => wrapper.instance)
       .forEach(v => {
-        const { instance } = v
+        const {instance} = v
         const controllerPath = this.reflector.get(PATH_METADATA, v.metatype)
         this.metadataScanner.getAllMethodNames(instance).forEach(name => {
           const path = this.reflector.get(PATH_METADATA, instance[name])
