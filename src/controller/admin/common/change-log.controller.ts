@@ -1,7 +1,7 @@
-import { Controller, Param, Req } from '@nestjs/common'
+import {Controller, Param, Req} from '@nestjs/common'
 import {ApiTags} from '@nestjs/swagger'
-import {AspenGet} from '../../../framework/decorators/req/aspen-req.decorators'
-import { AspenRateLimit } from '../../../framework/decorators'
+import {AspenGet} from '../../../framework/decorators/req/aspen-req'
+import {AspenRateLimit} from '../../../framework/decorators'
 
 @ApiTags('操作日志')
 @Controller('/admin/common/chang-log')

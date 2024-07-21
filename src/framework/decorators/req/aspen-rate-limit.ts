@@ -49,10 +49,7 @@ const defaultAspenRateLimitOption: AspenRateLimitOption = {
 }
 
 export const AspenRateLimit = (option?: AspenRateLimitOption) => {
-  if (!option) {
-    option = {...defaultAspenRateLimitOption}
-  }
-  return SetMetadata(ASPEN_RATE_LIMIT, option)
+  return SetMetadata(ASPEN_RATE_LIMIT, {...defaultAspenRateLimitOption, ...option})
 }
 
 @Injectable()

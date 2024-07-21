@@ -8,7 +8,7 @@ import {HttpStatusConstant} from '../../constant/http-constant'
 import {ComChangLogService} from '../../../module/_common/service/com-chang-log.service'
 import {SysLogType} from '../../constant/sys-constant'
 
-export const LOG = 'Log'
+export const ASPEN_LOG = 'aspen_log'
 
 export type LogOption = {
   /**
@@ -31,7 +31,7 @@ export type LogOption = {
   isSaveResponseData: boolean
 }
 
-export const Log = (option: LogOption) => SetMetadata(LOG, option)
+export const Log = (option: LogOption) => SetMetadata(ASPEN_LOG, option)
 
 @Injectable()
 export class LogInterceptor implements NestInterceptor {
@@ -42,7 +42,7 @@ export class LogInterceptor implements NestInterceptor {
 
   intercept(ctx: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
     const handler = ctx.getHandler()
-    const logOption: LogOption = this.reflector.get<LogOption>(LOG, handler)
+    const logOption: LogOption = this.reflector.get<LogOption>(ASPEN_LOG, handler)
     if (!logOption) {
       return next.handle()
     }

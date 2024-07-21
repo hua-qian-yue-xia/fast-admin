@@ -2,7 +2,7 @@ import {Injectable, OnModuleInit} from '@nestjs/common'
 import {DiscoveryService, Reflector} from '@nestjs/core'
 import {MetadataScanner} from '@nestjs/core/metadata-scanner'
 import {PATH_METADATA} from '@nestjs/common/constants'
-import {ANONYMOUS} from '../decorators/req/anonymous.decorators'
+import {ASPEN_ANONYMOUS} from '../decorators/req/aspen-anonymous'
 
 @Injectable()
 export class RouterWhiteService implements OnModuleInit {
@@ -28,7 +28,7 @@ export class RouterWhiteService implements OnModuleInit {
         const controllerPath = this.reflector.get(PATH_METADATA, v.metatype)
         this.metadataScanner.getAllMethodNames(instance).forEach(name => {
           const path = this.reflector.get(PATH_METADATA, instance[name])
-          const anonymous = this.reflector.get(ANONYMOUS, instance[name])
+          const anonymous = this.reflector.get(ASPEN_ANONYMOUS, instance[name])
           const whitePath = `${controllerPath}${path}`
           if (anonymous && anonymous === true) {
             this.whiteList.push(whitePath)

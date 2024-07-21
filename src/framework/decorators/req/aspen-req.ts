@@ -1,8 +1,8 @@
 import {Delete, Get, HttpCode, Patch, Post, Put, applyDecorators} from '@nestjs/common'
 import {ApiOperation, ApiResponse} from '@nestjs/swagger'
-import {Log, LogOption} from './log'
+import {Log, LogOption} from './aspen-log'
 import {SysLogType} from '../../constant/sys-constant'
-import {Anonymous} from './anonymous.decorators'
+import {Anonymous} from './aspen-anonymous'
 
 export enum Method {
   Get = 'GET',
