@@ -1,0 +1,40 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "es2017",
+		"sourceMap": true,
+		"paths": {
+			"apps/*": [
+				"./apps/*"
+			],
+			"libs/*": [
+				"./libs/*"
+			],
+			"@aspen/aspen-core": [
+				"libs/aspen-core/src"
+			],
+			"@aspen/aspen-fram": [
+				"libs/aspen-fram/src"
+			],
+		},
+		"outDir": "./dist",
+		"resolveJsonModule": true,
+		"baseUrl": "./",
+		"typeRoots": [
+			"./types",
+			"./node_modules/@types"
+		],
+		"incremental": true,
+		"skipLibCheck": true,
+		"strictNullChecks": false,
+		"noImplicitAny": false,
+		"strictBindCallApply": false,
+		"forceConsistentCasingInFileNames": false,
+		"noFallthroughCasesInSwitch": false
+	}
+}

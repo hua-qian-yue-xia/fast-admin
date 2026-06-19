@@ -1,0 +1,17 @@
+{
+	"name": "@aspen-nestjs-api/core",
+	"private": true,
+	"version": "1.0.0",
+	"description": "aspen核心模块",
+	"dependencies": {
+		"js-yaml": "^4.2.0",
+		"mysql2": "^3.22.5",
+		"nestjs-cls": "^6.2.1",
+		"winston": "^3.19.0",
+		"winston-daily-rotate-file": "^5.0.0",
+		"winston-loki": "^6.1.4"
+	},
+	"devDependencies": {
+		"@types/js-yaml": "^4.0.9"
+	}
+}

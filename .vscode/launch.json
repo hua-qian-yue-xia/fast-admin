@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "admin:dev",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "pnpm run admin:dev",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "admin:build",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "pnpm run admin:build",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

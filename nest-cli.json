@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps",
+  "root": "apps",
+  "monorepo": true,
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "watchAssets": true,
+    "assets": [
+      {
+        "include": "**/*.yaml",
+        "outDir": "./dist/apps/admin/biz"
+      }
+    ],
+    "webpack": true
+  },
+  "projects": {
+    "@aspen-nestjs-api/admin-biz": {
+      "type": "application",
+      "root": "apps/admin/biz",
+      "entryFile": "main",
+      "sourceRoot": "apps/admin/biz/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/admin/biz/tsconfig.json"
+      }
+    },
+    "@aspen-nestjs-api/core": {
+      "type": "library",
+      "root": "libs/aspen-core",
+      "entryFile": "index",
+      "sourceRoot": "libs/aspen-core",
+      "compilerOptions": {
+        "tsConfigPath": "libs/aspen-core/tsconfig.lib.json"
+      }
+    },
+    "@aspen-nestjs-api/fram": {
+      "type": "library",
+      "root": "libs/aspen-fram",
+      "entryFile": "index",
+      "sourceRoot": "libs/aspen-fram",
+      "compilerOptions": {
+        "tsConfigPath": "libs/aspen-fram/tsconfig.lib.json"
+      }
+    }
+  }
+}

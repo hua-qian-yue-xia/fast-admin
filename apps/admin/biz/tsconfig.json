@@ -1,0 +1,15 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"compilerOptions": {
+		"declaration": false,
+		"outDir": "../../../dist/apps/admin/biz"
+	},
+	"include": [
+		"src/**/*",
+		"src/config/*.yaml"
+	],
+	"exclude": [
+		"node_modules",
+		"dist"
+	]
+}

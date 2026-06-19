@@ -1,0 +1,17 @@
+database:
+  type: mysql
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: root
+  database: aspen-nest
+  # 是否同步数据库
+  # 开发环境建议开启,生产环境建议关闭
+  dropSchema: true
+  # 是否同步数据库
+  # 开发环境建议开启,生产环境建议关闭
+  synchronize: true
+redis:
+  host: 127.0.0.1
+  port: 6379
+  db: 15

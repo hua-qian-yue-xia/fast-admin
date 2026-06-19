@@ -1,0 +1,7 @@
+{
+	"name": "@aspen-nestjs-api/admin-biz",
+	"private": true,
+	"version": "1.0.0",
+	"description": "aspen管理系统",
+	"dependencies": {}
+}

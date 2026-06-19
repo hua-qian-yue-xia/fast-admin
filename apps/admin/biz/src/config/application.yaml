@@ -1,0 +1,17 @@
+app:
+  name: admin
+  description: "admin模块"
+  version: 1.0.0
+  port: 7001
+  prefix: "/admin"
+  enableCors: true
+
+doc:
+  enable: true
+
+syncStorage:
+  storage:
+    middlewareKeys:
+      - "token"
+    guardKeys:
+      - "page"

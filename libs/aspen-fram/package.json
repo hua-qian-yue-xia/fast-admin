@@ -1,0 +1,13 @@
+{
+	"name": "@aspen-nestjs-api/fram",
+	"private": true,
+	"version": "1.0.0",
+	"description": "aspen框架模块",
+	"dependencies": {
+		"@nestjs/passport": "^11.0.5",
+		"passport-jwt": "^4.0.1"
+	},
+	"devDependencies": {
+		"@types/passport-jwt": "^4.0.1"
+	}
+}
