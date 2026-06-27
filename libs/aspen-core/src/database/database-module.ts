@@ -6,7 +6,7 @@ import type { Logger as WinstonLoggerInstance } from "winston"
 
 import { OrmLogger } from "./tool/orm-logger"
 
-import { WINSTON_INSTANCE, WinstonLoggerModule } from "../logger/winston-logger-module"
+import { WINSTON_INSTANCE } from "../logger/winston-logger-module"
 
 export type DatabaseModuleOptions = {
 	/**
@@ -33,16 +33,13 @@ export class DatabaseModule {
 			}
 		}
 
-		const winstonLoggerModule = WinstonLoggerModule.forRoot()
-
 		return {
 			global: true,
 			module: DatabaseModule,
 			imports: [
 				ConfigModule,
-				winstonLoggerModule,
 				TypeOrmModule.forRootAsync({
-					imports: [ConfigModule, winstonLoggerModule],
+					imports: [ConfigModule],
 					inject: [ConfigService, WINSTON_INSTANCE],
 					useFactory: (config: ConfigService<AspenConf.Application, true>, winstonLogger: WinstonLoggerInstance): TypeOrmModuleOptions => {
 						const logger = new Logger(DatabaseModule.name)

@@ -128,11 +128,19 @@ const colorLevel = (raw: string, fixed: string) => {
 
 const loadLokiTransport = () => {
 	const runtimeRequire =
-		typeof __non_webpack_require__ === "function"
-			? __non_webpack_require__
-			: (Function("return require")() as NodeJS.Require)
+		typeof __non_webpack_require__ === "function" ? __non_webpack_require__ : (Function("return require")() as NodeJS.Require)
 	const lokiTransport = runtimeRequire("winston-loki")
 	return lokiTransport.default || lokiTransport
+}
+
+const writeInternalLoggerMessage = (tag: string, level: "INFO" | "ERROR", message: string, error?: unknown) => {
+	const output = `[WinstonLogger] [${tag}] [${level}] ${message}`
+	if (level === "ERROR") {
+		const errorMessage = error instanceof Error ? `\n${error.stack ?? error.message}` : error ? `\n${String(error)}` : ""
+		process.stderr.write(`${output}${errorMessage}\n`)
+		return
+	}
+	process.stdout.write(`${output}\n`)
 }
 
 export const createWinstonLogger = (appConfig: AspenConf.AppConf, loggerConfig: AspenConf.LoggerConf) => {
@@ -150,11 +158,7 @@ export const createWinstonLogger = (appConfig: AspenConf.AppConf, loggerConfig: 
 	)
 
 	// 文件 JSON 格式（便于 Promtail/Loki 采集）
-	const jsonFormat = format.combine(
-		format.timestamp({ format: "YYYY-MM-DD HH:mm:ss.SSS" }),
-		format.errors({ stack: true }),
-		format.json(),
-	)
+	const jsonFormat = format.combine(format.timestamp({ format: "YYYY-MM-DD HH:mm:ss.SSS" }), format.errors({ stack: true }), format.json())
 
 	// 兼容 default 导出与命名空间导出
 	const RotateClass: any = (DailyRotateFile as any).default || (DailyRotateFile as any)
@@ -192,19 +196,37 @@ export const createWinstonLogger = (appConfig: AspenConf.AppConf, loggerConfig: 
 	}
 
 	const lokiTransports = () => {
-		const LokiClass: any = loadLokiTransport()
-		return new LokiClass({
-			host: loggerConfig.lokiHost,
-			labels: labels,
-			json: true,
-			// 是否开启批量推送
-			batching: true,
-			// 批量推送间隔(秒)
-			interval: 5,
-			// 是否用日志中的 timestamp 替换 loki 中的 timestamp
-			replaceTimestamp: true,
-			level: loggerConfig.level,
-		})
+		try {
+			const LokiClass: any = loadLokiTransport()
+			const transport = new LokiClass({
+				host: loggerConfig.lokiHost,
+				labels: labels,
+				json: true,
+				// 是否开启批量推送
+				batching: true,
+				// 批量推送间隔(秒)
+				interval: 5,
+				// 是否用日志中的 timestamp 替换 loki 中的 timestamp
+				replaceTimestamp: true,
+				level: loggerConfig.level,
+				onConnectionError: (error: unknown) => {
+					writeInternalLoggerMessage("Loki", "ERROR", `日志推送失败,host=${loggerConfig.lokiHost}`, error)
+				},
+				onConnectionSuccess: () => {
+					writeInternalLoggerMessage("Loki", "INFO", `transport 已连接,host=${loggerConfig.lokiHost}`)
+				},
+			})
+
+			transport.on?.("error", (error: unknown) => {
+				writeInternalLoggerMessage("Loki", "ERROR", `transport 运行异常,host=${loggerConfig.lokiHost}`, error)
+			})
+
+			writeInternalLoggerMessage("Loki", "INFO", `transport 已初始化,host=${loggerConfig.lokiHost}`)
+			return transport
+		} catch (error) {
+			writeInternalLoggerMessage("Loki", "ERROR", `transport 初始化失败,host=${loggerConfig.lokiHost}`, error)
+			throw error
+		}
 	}
 
 	const transportList = []

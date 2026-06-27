@@ -9,6 +9,17 @@ app:
 doc:
   enable: true
 
+logger:
+  level: info
+  zippedArchive: true
+  maxSize: 20m
+  maxFiles: 30D
+  lokiHost: "http://127.0.0.1:3100"
+  transports:
+    - "console"
+    - "file"
+    - "loki"
+
 syncStorage:
   storage:
     middlewareKeys:
