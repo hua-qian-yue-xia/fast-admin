@@ -7,6 +7,7 @@ import { WinstonLoggerModule } from "../logger/winston-logger-module"
 import { RedisCacheModule } from "../cache/redis-module"
 import { DatabaseModule } from "../database/database-module"
 import { GlobalClsModule } from "../async-storage/cls-module"
+import { PrometheusModule } from "../prometheus/prometheus-module"
 import { TempoModule } from "../tempo/tempo-module"
 
 @Module({})
@@ -32,6 +33,10 @@ export class ApplicationModule {
 		return !!config.tempo?.enabled
 	}
 
+	private static isPrometheusEnabled(config: Partial<AspenConf.Application>): boolean {
+		return !!config.prometheus?.enabled
+	}
+
 	static forRoot(load: Array<ConfigFactory | Partial<AspenConf.Application>>, rootModule: Type<any>): IEntryNestModule {
 		const entityPattern = `${process.cwd()}/dist/**/*.entity{.ts,.js}`
 		const normalized = load.map((item) => (typeof item === "function" ? item : () => item))
@@ -43,10 +48,13 @@ export class ApplicationModule {
 			global: true,
 			module: ApplicationModule,
 			imports: [
+				rootModule,
 				// 引入配置模块(全局)
 				ConfigModule.forRoot({ load: normalized }),
 				// 引入 Tempo 链路追踪模块(全局)
 				TempoModule.forRoot({ enabled: this.isTempoEnabled(bootstrapConfig) }),
+				// 引入 Prometheus 指标模块(全局)
+				PrometheusModule.forRoot({ enabled: this.isPrometheusEnabled(bootstrapConfig) }),
 				// 引入 Winston 日志模块(全局)
 				WinstonLoggerModule.forRoot(),
 				// 引入 CLS 异步上下文模块(全局)

@@ -42,6 +42,14 @@ export const DEFAULT_CONF: AspenConf.Application = {
 		headers: {},
 		timeoutMs: 10000,
 	},
+	prometheus: {
+		enabled: false,
+		path: "/metrics",
+		defaultMetricsEnabled: true,
+		defaultMetricPrefix: "",
+		customMetricPrefix: "",
+		defaultLabels: {},
+	},
 	doc: {
 		pathPrefix: "/doc",
 		enable: false,

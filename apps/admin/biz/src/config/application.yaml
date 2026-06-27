@@ -24,6 +24,10 @@ tempo:
   enabled: true
   otlpHttpUrl: "http://127.0.0.1:4318"
 
+prometheus:
+  enabled: true
+  path: "/metrics"
+
 syncStorage:
   storage:
     middlewareKeys:

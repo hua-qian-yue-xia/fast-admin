@@ -6,6 +6,7 @@ declare namespace AspenConf {
 		jwt: JwtConf
 		logger: LoggerConf
 		tempo: TempoConf
+		prometheus: PrometheusConf
 		doc: DocConf
 		syncStorage: SyncStorageConf
 	}
@@ -197,6 +198,43 @@ declare namespace AspenConf {
 		 * @default 10000
 		 */
 		timeoutMs?: number
+	}
+
+	type PrometheusConf = {
+		/**
+		 * 是否开启 Prometheus metrics 暴露
+		 * @default false
+		 */
+		enabled?: boolean
+
+		/**
+		 * metrics 暴露路径
+		 * @default '/metrics'
+		 */
+		path?: string
+
+		/**
+		 * 是否启用 prom-client 默认指标采集
+		 * @default true
+		 */
+		defaultMetricsEnabled?: boolean
+
+		/**
+		 * prom-client 默认指标前缀
+		 * 例如设置为 `node_` 后，会生成 `node_process_cpu_seconds_total`
+		 */
+		defaultMetricPrefix?: string
+
+		/**
+		 * 通过 `makeCounterProvider` 等方式创建的自定义指标统一前缀
+		 * 框架会自动补齐 `_`
+		 */
+		customMetricPrefix?: string
+
+		/**
+		 * 默认指标标签，会与 service/version/environment 自动标签合并
+		 */
+		defaultLabels?: Record<string, string>
 	}
 
 	type DocConf = {

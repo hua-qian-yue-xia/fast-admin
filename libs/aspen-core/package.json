@@ -10,9 +10,11 @@
 		"@opentelemetry/instrumentation-nestjs-core": "catalog:telemetry",
 		"@opentelemetry/resources": "catalog:telemetry",
 		"@opentelemetry/sdk-node": "catalog:telemetry",
+		"@willsoto/nestjs-prometheus": "catalog:",
 		"js-yaml": "catalog:",
 		"mysql2": "catalog:",
 		"nestjs-cls": "catalog:",
+		"prom-client": "catalog:",
 		"winston": "catalog:",
 		"winston-daily-rotate-file": "catalog:",
 		"winston-loki": "catalog:"
