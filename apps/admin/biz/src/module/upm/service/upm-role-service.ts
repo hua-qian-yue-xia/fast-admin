@@ -6,8 +6,8 @@ import { cache, exception } from "@aspen/aspen-fram"
 
 import { In, Repository } from "typeorm"
 
-import { UpmRoleEntity, UpmRoleQueryDto, UpmRoleSaveDto } from "../entity/upm-role.entity"
-import { UpmRoleShare } from "./share/upm-role-share"
+import { UpmRoleEntity, UpmRoleQueryDto, UpmRoleSaveDto } from "../entity"
+import { UpmRoleShare } from "./share"
 
 @Injectable()
 export class UpmRoleService {

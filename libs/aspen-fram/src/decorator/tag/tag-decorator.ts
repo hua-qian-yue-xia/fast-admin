@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit, SetMetadata, RequestMethod } from "@nestjs/common"
+import { Injectable, OnApplicationBootstrap, SetMetadata, RequestMethod } from "@nestjs/common"
 import { DiscoveryService, MetadataScanner, Reflector } from "@nestjs/core"
 import { PATH_METADATA, METHOD_METADATA } from "@nestjs/common/constants"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -34,7 +34,7 @@ export type AspenTagRecord = {
 }
 
 @Injectable()
-export class TagService implements OnModuleInit {
+export class TagService implements OnApplicationBootstrap {
 	/**
 	 * 已扫描出的接口标签列表，供运行期快速匹配使用。
 	 */
@@ -55,7 +55,7 @@ export class TagService implements OnModuleInit {
 		return this.tagList.some((item) => item.path === path && item.method === method)
 	}
 
-	onModuleInit(): void {
+	onApplicationBootstrap(): void {
 		this.getTagList()
 	}
 

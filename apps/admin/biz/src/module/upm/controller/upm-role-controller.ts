@@ -1,8 +1,8 @@
 import { Body, Param, ParseArrayPipe } from "@nestjs/common"
 import { R, router } from "@aspen/aspen-fram"
 
-import { UpmRoleService } from "../service/upm-role-service"
-import { UpmRoleEntity, UpmRoleQueryDto, UpmRoleSaveDto } from "../entity/upm-role.entity"
+import { UpmRoleService } from "../service"
+import { UpmRoleEntity, UpmRoleQueryDto, UpmRoleSaveDto } from "../entity"
 
 @router.controller({ summary: "角色管理", prefix: "/upm/role" })
 export class UpmRoleController {

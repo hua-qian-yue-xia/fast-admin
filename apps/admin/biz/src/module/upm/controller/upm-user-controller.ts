@@ -2,9 +2,9 @@ import { Body, Param, ParseArrayPipe } from "@nestjs/common"
 
 import { R, router } from "@aspen/aspen-fram"
 
-import { UpmUserService } from "../service/upm-user-service"
+import { UpmUserService } from "../service"
 
-import { UpmUserEntity, UpmUserQueryDto } from "../entity/upm-user.entity"
+import { UpmUserEntity, UpmUserQueryDto } from "../entity"
 
 @router.controller({ summary: "用户管理", prefix: "/upm/user" })
 export class UpmUserController {

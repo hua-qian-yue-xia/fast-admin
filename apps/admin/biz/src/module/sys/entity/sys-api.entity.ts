@@ -1,4 +1,6 @@
-import { Column, Entity, Index, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { createHash } from "node:crypto"
+
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 
 import { AspenRule, AspenSummary, BaseDb, comEnums } from "@aspen/aspen-fram"
 
@@ -17,18 +19,6 @@ export class SysApiEntity extends BaseDb {
 	@AspenSummary({ summary: "应用名称" })
 	appName?: string
 
-	@Column({ type: "varchar", length: 256, nullable: true, comment: "应用描述" })
-	@AspenSummary({ summary: "应用描述" })
-	appDescription?: string
-
-	@Column({ type: "varchar", length: 32, nullable: true, comment: "应用版本" })
-	@AspenSummary({ summary: "应用版本" })
-	appVersion?: string
-
-	@Column({ type: "varchar", length: 128, nullable: true, comment: "应用前缀" })
-	@AspenSummary({ summary: "应用前缀" })
-	appPrefix?: string
-
 	@Column({ type: "varchar", length: 255, comment: "接口路径" })
 	@AspenSummary({ summary: "接口路径" })
 	path: string
@@ -42,8 +32,25 @@ export class SysApiEntity extends BaseDb {
 	@AspenSummary({ summary: "请求方法", rule: AspenRule() })
 	method: string
 
+	@Column({ type: "varchar", length: 255, comment: "接口hash值" })
+	@AspenSummary({ summary: "接口hash值" })
+	hash: string
+
 	@OneToMany(() => SysApiTagRelEntity, (tagRel) => tagRel.api, { cascade: true })
 	tagList: Array<SysApiTagRelEntity>
+
+	generateHash(): string {
+		const payload = JSON.stringify({
+			appName: this.appName?.trim() ?? "",
+			path: this.path?.trim() ?? "",
+			method: this.method?.trim().toUpperCase() ?? "",
+			tags: (this.tagList ?? [])
+				.map((tag) => tag.tag?.trim())
+				.filter(Boolean)
+				.sort(),
+		})
+		return createHash("sha256").update(payload).digest("hex")
+	}
 }
 
 @Entity({ comment: "接口标签关系", name: "sys_api_tag_rel" })

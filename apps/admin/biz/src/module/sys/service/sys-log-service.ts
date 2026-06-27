@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
-import { SysLogEntity } from "../entity/sys-log.entity"
+import { SysLogEntity } from "../entity"
 
 @Injectable()
 export class SysLogService {

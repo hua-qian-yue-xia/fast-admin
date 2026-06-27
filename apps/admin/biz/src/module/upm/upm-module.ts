@@ -2,29 +2,29 @@ import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
 
 // entity
-import { UpmDeptEntity } from "./entity/upm-dept.entity"
-import { UpmMenuEntity } from "./entity/upm-menu.entity"
-import { UpmRoleEntity } from "./entity/upm-role.entity"
-import { UpmUserEntity } from "./entity/upm-user.entity"
+import { UpmDeptEntity } from "./entity"
+import { UpmMenuEntity } from "./entity"
+import { UpmRoleEntity } from "./entity"
+import { UpmUserEntity } from "./entity"
 
 // controller
-import { UpmDeptController } from "./controller/upm-dept-controller"
-import { UpmMenuController } from "./controller/upm-menu-controller"
-import { UpmRoleController } from "./controller/upm-role-controller"
-import { UpmUserController } from "./controller/upm-user-controller"
+import { UpmDeptController } from "./controller"
+import { UpmMenuController } from "./controller"
+import { UpmRoleController } from "./controller"
+import { UpmUserController } from "./controller"
 
 // service
-import { UpmDeptService } from "./service/upm-dept-service"
-import { UpmMenuService } from "./service/upm-menu-service"
-import { UpmRoleService } from "./service/upm-role-service"
-import { UpmUserService } from "./service/upm-user-service"
+import { UpmDeptService } from "./service"
+import { UpmMenuService } from "./service"
+import { UpmRoleService } from "./service"
+import { UpmUserService } from "./service"
 const service = [UpmDeptService, UpmMenuService, UpmRoleService, UpmUserService]
 
 // share
-import { UpmDeptShare } from "./service/share/upm-dept-share"
-import { UpmMenuShare } from "./service/share/upm-menu-share"
-import { UpmRoleShare } from "./service/share/upm-role-share"
-import { UpmUserShare } from "./service/share/upm-user-share"
+import { UpmDeptShare } from "./service"
+import { UpmMenuShare } from "./service"
+import { UpmRoleShare } from "./service"
+import { UpmUserShare } from "./service"
 const share = [UpmDeptShare, UpmMenuShare, UpmRoleShare, UpmUserShare]
 
 @Module({

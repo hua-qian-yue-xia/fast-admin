@@ -1,5 +1,6 @@
 import { Brackets, Column, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn, Repository } from "typeorm"
 import * as _ from "es-toolkit/compat"
+
 import { AspenRule, AspenSummary, BasePage, BaseRecordDb } from "@aspen/aspen-fram"
 
 import { UpmUserEntity } from "./upm-user.entity"

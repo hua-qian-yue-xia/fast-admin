@@ -48,9 +48,6 @@ export class SysLogEntity extends BaseRecordDb {
 	@Column({ type: "varchar", length: 32, nullable: true, comment: "ip解析地址" })
 	ipAddress: string
 
-	@Column({ type: "varchar", length: 256, nullable: true, comment: "userAgent" })
-	userAgent: string
-
 	@Column({ type: "varchar", length: 128, comment: "请求uri" })
 	uri: string
 
