@@ -55,14 +55,18 @@ export class SysDictItemService {
 	// 新增字典项
 	@cache.put({ key: "sys:dict-item:id", value: (_, result) => `${result.id}`, expiresIn: "2h" })
 	async save(body: SysDictItemSaveDto) {
-		const saveObj = await this.sysDictItemRepo.save(body.toEntity())
+		const entity = body.toEntity()
+		entity.hash = entity.generateHash()
+		const saveObj = await this.sysDictItemRepo.save(entity)
 		return saveObj
 	}
 
 	// 修改字典项
 	@cache.evict({ key: "sys:dict-item:id", value: ([body]) => `${body.id}` })
 	async edit(body: SysDictItemSaveDto) {
-		await this.sysDictItemRepo.update({ id: body.id }, body.toEntity())
+		const entity = body.toEntity()
+		entity.hash = entity.generateHash()
+		await this.sysDictItemRepo.update({ id: body.id }, entity)
 	}
 
 	// 删除字典项

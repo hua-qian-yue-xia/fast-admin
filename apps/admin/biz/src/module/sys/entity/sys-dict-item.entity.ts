@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto"
+
 import { Brackets, Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn, Repository } from "typeorm"
 import * as _ from "es-toolkit/compat"
 
@@ -36,6 +38,22 @@ export class SysDictItemEntity extends BaseDb {
 	@Column({ type: "int", default: 0, comment: "排序" })
 	@AspenSummary({ summary: "排序", rule: AspenRule() })
 	sort: number
+
+	@Column({ type: "varchar", length: 255, comment: "字典项hash值" })
+	@AspenSummary({ summary: "字典项hash值" })
+	hash: string
+
+	generateHash(): string {
+		const payload = JSON.stringify({
+			dictId: this.dict?.id ?? "",
+			dictCode: this.dict?.code?.trim() ?? "",
+			code: this.code?.trim() ?? "",
+			summary: this.summary?.trim() ?? "",
+			hexColor: this.hexColor?.trim().toUpperCase() ?? "",
+			sort: this.sort ?? 0,
+		})
+		return createHash("sha256").update(payload).digest("hex")
+	}
 }
 
 /*
