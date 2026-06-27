@@ -1,7 +1,7 @@
-import { NestFactory } from "@nestjs/core"
 import { Type } from "@nestjs/common"
-import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify"
 import { ConfigService } from "@nestjs/config"
+import { NestFactory } from "@nestjs/core"
+import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify"
 
 import { ApplicationModule } from "./application-module"
 import { AppCtx } from "./application-ctx"
@@ -38,8 +38,10 @@ export class Application {
 	 * 4. 自动处理 CORS 与全局路由前缀
 	 */
 	private static async bootstrap(module: Type<any>, cwdPath: string): Promise<NestFastifyApplication> {
+		const bootstrapConfig = ConfTool.readActiveYamlFile(cwdPath) as unknown as AspenConf.Application
+
 		this.app = await NestFactory.create<NestFastifyApplication>(
-			ApplicationModule.forRoot([ConfTool.readActiveYamlFile(cwdPath)], module),
+			ApplicationModule.forRoot([bootstrapConfig], module),
 			new FastifyAdapter({
 				logger: false,
 			}),

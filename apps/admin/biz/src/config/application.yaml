@@ -20,6 +20,10 @@ logger:
     - "file"
     - "loki"
 
+tempo:
+  enabled: true
+  otlpHttpUrl: "http://127.0.0.1:4318"
+
 syncStorage:
   storage:
     middlewareKeys:

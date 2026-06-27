@@ -36,6 +36,12 @@ export const DEFAULT_CONF: AspenConf.Application = {
 		lokiHost: "",
 		transports: ["console", "file"],
 	},
+	tempo: {
+		enabled: false,
+		otlpHttpUrl: "",
+		headers: {},
+		timeoutMs: 10000,
+	},
 	doc: {
 		pathPrefix: "/doc",
 		enable: false,

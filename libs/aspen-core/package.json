@@ -4,14 +4,20 @@
 	"version": "1.0.0",
 	"description": "aspen核心模块",
 	"dependencies": {
-		"js-yaml": "^4.2.0",
-		"mysql2": "^3.22.5",
-		"nestjs-cls": "^6.2.1",
-		"winston": "^3.19.0",
-		"winston-daily-rotate-file": "^5.0.0",
-		"winston-loki": "^6.1.4"
+		"@opentelemetry/exporter-trace-otlp-http": "catalog:telemetry",
+		"@opentelemetry/instrumentation-fastify": "catalog:telemetry",
+		"@opentelemetry/instrumentation-http": "catalog:telemetry",
+		"@opentelemetry/instrumentation-nestjs-core": "catalog:telemetry",
+		"@opentelemetry/resources": "catalog:telemetry",
+		"@opentelemetry/sdk-node": "catalog:telemetry",
+		"js-yaml": "catalog:",
+		"mysql2": "catalog:",
+		"nestjs-cls": "catalog:",
+		"winston": "catalog:",
+		"winston-daily-rotate-file": "catalog:",
+		"winston-loki": "catalog:"
 	},
 	"devDependencies": {
-		"@types/js-yaml": "^4.0.9"
+		"@types/js-yaml": "catalog:"
 	}
 }

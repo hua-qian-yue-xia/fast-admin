@@ -4,10 +4,10 @@
 	"version": "1.0.0",
 	"description": "aspen框架模块",
 	"dependencies": {
-		"@nestjs/passport": "^11.0.5",
-		"passport-jwt": "^4.0.1"
+		"@nestjs/passport": "catalog:",
+		"passport-jwt": "catalog:"
 	},
 	"devDependencies": {
-		"@types/passport-jwt": "^4.0.1"
+		"@types/passport-jwt": "catalog:"
 	}
 }

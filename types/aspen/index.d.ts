@@ -5,6 +5,7 @@ declare namespace AspenConf {
 		database: DatabaseConf
 		jwt: JwtConf
 		logger: LoggerConf
+		tempo: TempoConf
 		doc: DocConf
 		syncStorage: SyncStorageConf
 	}
@@ -170,6 +171,32 @@ declare namespace AspenConf {
 		 * loki: loki输出
 		 */
 		transports?: Array<"console" | "file" | "loki">
+	}
+
+	type TempoConf = {
+		/**
+		 * 是否开启 Tempo trace 上报
+		 * @default false
+		 */
+		enabled?: boolean
+
+		/**
+		 * OTLP HTTP traces 端点。
+		 * 既支持完整路径 `http://127.0.0.1:4318/v1/traces`，
+		 * 也支持基础地址 `http://127.0.0.1:4318`。
+		 */
+		otlpHttpUrl?: string
+
+		/**
+		 * 自定义上报请求头。
+		 * 常用于 Grafana Cloud / Gateway Token 鉴权。
+		 */
+		headers?: Record<string, string>
+		/**
+		 * OTLP 请求超时时间，单位毫秒
+		 * @default 10000
+		 */
+		timeoutMs?: number
 	}
 
 	type DocConf = {
