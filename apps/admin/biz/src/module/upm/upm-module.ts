@@ -1,35 +1,30 @@
 import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
 
-// entity
-import { UpmDeptEntity } from "./entity"
-import { UpmMenuEntity } from "./entity"
-import { UpmRoleEntity } from "./entity"
-import { UpmUserEntity } from "./entity"
+import { UpmDeptController, UpmMenuController, UpmRoleController, UpmUserController } from "./controller"
+import { UpmDeptEntity, UpmMenuEntity, UpmRoleEntity, UpmUserEntity } from "./entity"
+import {
+	UpmDeptService,
+	UpmDeptShare,
+	UpmMenuService,
+	UpmMenuShare,
+	UpmRoleService,
+	UpmRoleShare,
+	UpmUserService,
+	UpmUserShare,
+} from "./service"
 
-// controller
-import { UpmDeptController } from "./controller"
-import { UpmMenuController } from "./controller"
-import { UpmRoleController } from "./controller"
-import { UpmUserController } from "./controller"
+const entities = [UpmDeptEntity, UpmMenuEntity, UpmRoleEntity, UpmUserEntity]
 
-// service
-import { UpmDeptService } from "./service"
-import { UpmMenuService } from "./service"
-import { UpmRoleService } from "./service"
-import { UpmUserService } from "./service"
-const service = [UpmDeptService, UpmMenuService, UpmRoleService, UpmUserService]
+const controllers = [UpmDeptController, UpmMenuController, UpmRoleController, UpmUserController]
 
-// share
-import { UpmDeptShare } from "./service"
-import { UpmMenuShare } from "./service"
-import { UpmRoleShare } from "./service"
-import { UpmUserShare } from "./service"
-const share = [UpmDeptShare, UpmMenuShare, UpmRoleShare, UpmUserShare]
+const services = [UpmDeptService, UpmMenuService, UpmRoleService, UpmUserService]
+
+const shares = [UpmDeptShare, UpmMenuShare, UpmRoleShare, UpmUserShare]
 
 @Module({
-	imports: [TypeOrmModule.forFeature([UpmDeptEntity, UpmMenuEntity, UpmRoleEntity, UpmUserEntity])],
-	providers: [...service, ...share],
-	controllers: [UpmDeptController, UpmMenuController, UpmRoleController, UpmUserController],
+	imports: [TypeOrmModule.forFeature(entities)],
+	providers: [...services, ...shares],
+	controllers,
 })
 export class UpmModule {}
