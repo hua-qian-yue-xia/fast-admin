@@ -39,7 +39,7 @@ export const GenGroupDict = (options: GenDictOptions) => {
 }
 
 /**
- * 单个字典项事件载荷。
+ * 单个字典项事件载荷.
  */
 export type AspenGenDictRecordItem = {
 	code: string
@@ -49,7 +49,7 @@ export type AspenGenDictRecordItem = {
 }
 
 /**
- * 自动生成字典发现事件载荷。
+ * 自动生成字典发现事件载荷.
  */
 export type AspenGenDictRecord = {
 	appName?: string
@@ -77,7 +77,7 @@ export class GenDictService implements OnApplicationBootstrap {
 	}
 
 	/**
-	 * 启动时扫描注册到 GenDictRegistry 的枚举分组，并广播生成字典事件。
+	 * 启动时扫描注册到 GenDictRegistry 的枚举分组,并广播生成字典事件.
 	 */
 	getEnumList() {
 		const appConfig = this.configService.get("app", { infer: true })

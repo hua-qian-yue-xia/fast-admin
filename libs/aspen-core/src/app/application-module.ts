@@ -50,7 +50,7 @@ export class ApplicationModule {
 			imports: [
 				rootModule,
 				// 引入配置模块(全局)
-				ConfigModule.forRoot({ load: normalized }),
+				ConfigModule.forRoot({ load: normalized, isGlobal: true }),
 				// 引入 Tempo 链路追踪模块(全局)
 				TempoModule.forRoot({ enabled: this.isTempoEnabled(bootstrapConfig) }),
 				// 引入 Prometheus 指标模块(全局)

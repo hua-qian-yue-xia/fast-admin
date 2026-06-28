@@ -11,7 +11,7 @@ export type TagType = "callback" | "white" | "third"
 export const AspenTag = (type: Array<TagType> = []) => SetMetadata(DecoratorKey.Tag, type)
 
 /**
- * 启动阶段扫描到的接口标签缓存项。
+ * 启动阶段扫描到的接口标签缓存项.
  */
 type TagItem = {
 	type: Array<TagType>
@@ -20,7 +20,7 @@ type TagItem = {
 }
 
 /**
- * 标签接口发现事件载荷。
+ * 标签接口发现事件载荷.
  */
 export type AspenTagRecord = {
 	appName?: string
@@ -36,7 +36,7 @@ export type AspenTagRecord = {
 @Injectable()
 export class TagService implements OnApplicationBootstrap {
 	/**
-	 * 已扫描出的接口标签列表，供运行期快速匹配使用。
+	 * 已扫描出的接口标签列表,供运行期快速匹配使用.
 	 */
 	public tagList: Array<TagItem> = []
 
@@ -49,7 +49,7 @@ export class TagService implements OnApplicationBootstrap {
 	) {}
 
 	/**
-	 * 判断当前请求路径与方法是否命中已标记接口。
+	 * 判断当前请求路径与方法是否命中已标记接口.
 	 */
 	isTag(path: string, method: string) {
 		return this.tagList.some((item) => item.path === path && item.method === method)
@@ -60,7 +60,7 @@ export class TagService implements OnApplicationBootstrap {
 	}
 
 	/**
-	 * 启动时扫描控制器上的 Tag 元数据，缓存到本地并广播发现事件。
+	 * 启动时扫描控制器上的 Tag 元数据,缓存到本地并广播发现事件.
 	 */
 	getTagList() {
 		const appConfig = this.configService.get("app", { infer: true })

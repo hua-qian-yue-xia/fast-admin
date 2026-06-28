@@ -12,13 +12,13 @@ import { QuartzTaskShare } from "./share/quartz-task-share"
 import { QuartzBullService } from "./quartz-bull-service"
 
 /**
- * 定时任务服务。
+ * 定时任务服务.
  *
- * 该服务负责后台“任务定义”本身的管理能力：
- * - 分页与详情查询；
- * - 新增、修改、删除；
- * - 启用、停用、立即执行；
- * - 与 BullMQ 调度状态保持同步。
+ * 该服务负责后台"任务定义"本身的管理能力:
+ * - 分页与详情查询;
+ * - 新增,修改,删除;
+ * - 启用,停用,立即执行;
+ * - 与 BullMQ 调度状态保持同步.
  */
 @Injectable()
 export class QuartzTaskService {
@@ -32,33 +32,33 @@ export class QuartzTaskService {
 	) {}
 
 	/**
-	 * 任务分页。
+	 * 任务分页.
 	 */
 	async page(dto: QuartzTaskQueryDto) {
 		return await dto.createQueryBuilder(this.quartzTaskRepo).pageMany(dto.getSimplePageObj())
 	}
 
 	/**
-	 * 根据任务 id 查询任务详情。
+	 * 根据任务 id 查询任务详情.
 	 */
 	async getByTaskId(taskId: string) {
 		return await this.quartzTaskShare.getByTaskId(taskId)
 	}
 
 	/**
-	 * 获取当前系统中已注册的 handler 列表。
+	 * 获取当前系统中已注册的 handler 列表.
 	 *
-	 * 这个接口很适合给后台表单的“执行器下拉框”直接使用。
+	 * 这个接口很适合给后台表单的"执行器下拉框"直接使用.
 	 */
 	allHandlerName() {
 		return this.quartzHandlerShare.listHandlerNames()
 	}
 
 	/**
-	 * 新增任务。
+	 * 新增任务.
 	 *
-	 * 保存成功后会立刻同步到 BullMQ；
-	 * 若配置了 `runOnCreate = true`，还会额外触发一次立即执行。
+	 * 保存成功后会立刻同步到 BullMQ;
+	 * 若配置了 `runOnCreate = true`,还会额外触发一次立即执行.
 	 */
 	async save(dto: QuartzTaskSaveDto) {
 		const entity = dto.toEntity()
@@ -77,9 +77,9 @@ export class QuartzTaskService {
 	}
 
 	/**
-	 * 修改任务。
+	 * 修改任务.
 	 *
-	 * 修改后会先覆盖数据库，再把最新配置同步到 BullMQ。
+	 * 修改后会先覆盖数据库,再把最新配置同步到 BullMQ.
 	 */
 	async edit(dto: QuartzTaskSaveDto) {
 		if (!dto.taskId) {
@@ -96,9 +96,9 @@ export class QuartzTaskService {
 	}
 
 	/**
-	 * 批量删除任务。
+	 * 批量删除任务.
 	 *
-	 * 删除前会先移除 BullMQ 中的调度器或延迟任务，确保调度状态被一并清理。
+	 * 删除前会先移除 BullMQ 中的调度器或延迟任务,确保调度状态被一并清理.
 	 */
 	async delByIds(taskIds: Array<string>) {
 		const taskList = await this.quartzTaskRepo.find({
@@ -119,10 +119,10 @@ export class QuartzTaskService {
 	}
 
 	/**
-	 * 切换任务启用状态。
+	 * 切换任务启用状态.
 	 *
-	 * - 启用：重新同步调度；
-	 * - 停用：删除调度器并清空下一次执行时间。
+	 * - 启用:重新同步调度;
+	 * - 停用:删除调度器并清空下一次执行时间.
 	 */
 	async changeEnable(taskId: string, enable: boolean) {
 		await this.quartzTaskShare.checkThrowExist(taskId)
@@ -133,9 +133,9 @@ export class QuartzTaskService {
 	}
 
 	/**
-	 * 立即执行一次任务。
+	 * 立即执行一次任务.
 	 *
-	 * 不会影响原有调度器，仅插入一条立即执行的 job。
+	 * 不会影响原有调度器,仅插入一条立即执行的 job.
 	 */
 	async runNow(taskId: string, requestPayload?: Record<string, any>) {
 		const task = await this.quartzTaskShare.checkThrowExist(taskId)
@@ -144,9 +144,9 @@ export class QuartzTaskService {
 	}
 
 	/**
-	 * 重新同步某个任务到 BullMQ。
+	 * 重新同步某个任务到 BullMQ.
 	 *
-	 * 适合用于后台“修复调度”“重新加载配置”等运维操作。
+	 * 适合用于后台"修复调度""重新加载配置"等运维操作.
 	 */
 	async syncTask(taskId: string) {
 		const task = await this.quartzTaskShare.checkThrowExist(taskId)
@@ -155,10 +155,10 @@ export class QuartzTaskService {
 	}
 
 	/**
-	 * 统一业务校验入口。
+	 * 统一业务校验入口.
 	 *
-	 * 这里做的是“任务定义层”的严格校验，目的是尽量在保存前就发现问题，
-	 * 避免错误配置进入队列执行阶段。
+	 * 这里做的是"任务定义层"的严格校验,目的是尽量在保存前就发现问题,
+	 * 避免错误配置进入队列执行阶段.
 	 */
 	private async validateTaskEntity(entity: QuartzTaskEntity) {
 		if (await this.quartzTaskShare.isTaskNameDuplicate(entity)) {

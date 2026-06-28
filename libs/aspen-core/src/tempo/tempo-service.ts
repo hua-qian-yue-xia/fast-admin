@@ -56,7 +56,7 @@ export class TempoService implements OnModuleInit, OnApplicationShutdown {
 
 		const endpoint = this.normalizeOtlpHttpUrl(tempoConfig.otlpHttpUrl)
 		if (!endpoint) {
-			writeInternalTempoMessage(TEMPO_LOG_TAG, "WARN", "tracing 已启用，但未配置 otlpHttpUrl，已跳过初始化")
+			writeInternalTempoMessage(TEMPO_LOG_TAG, "WARN", "tracing 已启用,但未配置 otlpHttpUrl,已跳过初始化")
 			return
 		}
 

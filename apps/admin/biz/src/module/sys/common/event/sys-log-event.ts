@@ -10,27 +10,27 @@ export class SysLogEvent implements OnApplicationShutdown {
 	private readonly logger = new Logger(SysLogEvent.name)
 
 	/**
-	 * 运行期日志事件缓冲区。
+	 * 运行期日志事件缓冲区.
 	 */
 	private readonly pendingLogQueue: Array<AspenLogRecord> = []
 
 	/**
-	 * 定时批量写库的窗口时间，单位毫秒。
+	 * 定时批量写库的窗口时间,单位毫秒.
 	 */
 	private readonly flushIntervalMs = 5000
 
 	/**
-	 * 达到阈值后立即批量写库。
+	 * 达到阈值后立即批量写库.
 	 */
 	private readonly flushThreshold = 10
 
 	/**
-	 * 当前定时刷盘任务句柄。
+	 * 当前定时刷盘任务句柄.
 	 */
 	private flushTimer?: NodeJS.Timeout
 
 	/**
-	 * 当前是否存在进行中的刷库任务。
+	 * 当前是否存在进行中的刷库任务.
 	 */
 	private flushInFlight: Promise<void> | null = null
 
@@ -55,7 +55,7 @@ export class SysLogEvent implements OnApplicationShutdown {
 	}
 
 	/**
-	 * 确保缓冲区在固定窗口内至少会被刷一次，避免低频请求长期滞留内存。
+	 * 确保缓冲区在固定窗口内至少会被刷一次,避免低频请求长期滞留内存.
 	 */
 	private ensureFlushTimer() {
 		if (this.flushTimer) {
@@ -78,7 +78,7 @@ export class SysLogEvent implements OnApplicationShutdown {
 	}
 
 	/**
-	 * 服务关闭时循环清空缓冲区，尽量避免最后一批日志丢失。
+	 * 服务关闭时循环清空缓冲区,尽量避免最后一批日志丢失.
 	 */
 	private async drainPendingLogsOnShutdown() {
 		while (this.flushInFlight || this.pendingLogQueue.length) {
@@ -92,7 +92,7 @@ export class SysLogEvent implements OnApplicationShutdown {
 	}
 
 	/**
-	 * 将当前缓冲区中的运行期日志批量写入数据库。
+	 * 将当前缓冲区中的运行期日志批量写入数据库.
 	 */
 	private async flushPendingLogs(trigger: "timer" | "threshold" | "shutdown") {
 		if (this.flushInFlight) {
@@ -107,7 +107,7 @@ export class SysLogEvent implements OnApplicationShutdown {
 		this.flushInFlight = (async () => {
 			try {
 				await this.sysLogService.batchSaveLogs(currentBatch)
-				this.logger.log(`系统日志批量处理完成，触发方式 ${trigger}，本次写入 ${currentBatch.length} 条`)
+				this.logger.log(`系统日志批量处理完成,触发方式 ${trigger},本次写入 ${currentBatch.length} 条`)
 			} catch (error) {
 				this.logger.error(
 					`系统日志批量处理失败:${error instanceof Error ? error.message : String(error)}`,

@@ -5,9 +5,9 @@ import { QuartzTaskCategoryEntity, QuartzTaskCategoryQueryDto, QuartzTaskCategor
 import { QuartzTaskCategoryService } from "../service"
 
 /**
- * 定时任务分类控制器。
+ * 定时任务分类控制器.
  *
- * 提供后台分类管理所需的标准 CRUD 接口。
+ * 提供后台分类管理所需的标准 CRUD 接口.
  */
 @router.controller({ summary: "定时任务分类管理", prefix: "/quartz/category" })
 export class QuartzTaskCategoryController {

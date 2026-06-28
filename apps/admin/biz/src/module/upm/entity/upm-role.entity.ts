@@ -44,7 +44,7 @@ export class UpmRoleQueryDto extends BasePage {
 	@AspenSummary({ summary: "角色id", rule: AspenRule() })
 	roleId?: string
 
-	@AspenSummary({ summary: "角色名、角色编码", rule: AspenRule() })
+	@AspenSummary({ summary: "角色名,角色编码", rule: AspenRule() })
 	quick?: string
 
 	createQueryBuilder(repo: Repository<UpmRoleEntity>) {

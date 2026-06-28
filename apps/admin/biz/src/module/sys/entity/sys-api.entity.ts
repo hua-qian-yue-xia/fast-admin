@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto"
 
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Brackets, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Repository } from "typeorm"
+import * as _ from "es-toolkit/compat"
 
-import { AspenRule, AspenSummary, BaseDb, comEnums } from "@aspen/aspen-fram"
+import { AspenRule, AspenSummary, BaseDb, BasePage, comEnums } from "@aspen/aspen-fram"
 
 /*
  * ---------------------------------------------------------------
@@ -73,4 +74,40 @@ export class SysApiTagRelEntity extends BaseDb {
 	@Column({ type: "varchar", length: 32, comment: "接口标签" })
 	@AspenSummary({ summary: "接口标签", rule: AspenRule() })
 	tag: string
+}
+
+/*
+ * ---------------------------------------------------------------
+ * ## 接口表-查询
+ * ---------------------------------------------------------------
+ */
+export class SysApiQueryDto extends BasePage {
+	@AspenSummary({ summary: "接口路径/应用名", rule: AspenRule() })
+	quick?: string
+
+	@AspenSummary({ summary: "请求方法", rule: AspenRule() })
+	method?: string
+
+	@AspenSummary({ summary: "接口标签", rule: AspenRule() })
+	tag?: string
+
+	createQueryBuilder(repo: Repository<SysApiEntity>) {
+		const query = repo.createQueryBuilder("a").leftJoinAndSelect("a.tagList", "tag")
+		if (!_.isEmpty(this.quick)) {
+			query.andWhere(
+				new Brackets((qb) => {
+					qb.where("a.path LIKE :quick", { quick: `%${this.quick}%` })
+					qb.orWhere("a.app_name LIKE :quick", { quick: `%${this.quick}%` })
+				}),
+			)
+		}
+		if (!_.isEmpty(this.method)) {
+			query.andWhere("a.method = :method", { method: this.method })
+		}
+		if (!_.isEmpty(this.tag)) {
+			query.andWhere("tag.tag = :tag", { tag: this.tag })
+		}
+		query.orderBy("a.path", "ASC").addOrderBy("a.method", "ASC").addOrderBy("a.id", "DESC")
+		return query
+	}
 }

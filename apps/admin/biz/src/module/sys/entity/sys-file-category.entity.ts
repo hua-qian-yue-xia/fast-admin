@@ -34,7 +34,7 @@ export class SysFileCategoryEntity extends BaseRecordDb {
  * ## 文件分类-新增
  * ---------------------------------------------------------------
  */
-export class FrameFileCategorySaveDto {
+export class SysFileCategorySaveDto {
 	@AspenSummary({ summary: "文件分类id", rule: AspenRule() })
 	categoryId?: string
 

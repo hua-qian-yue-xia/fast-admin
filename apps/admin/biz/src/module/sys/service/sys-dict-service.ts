@@ -19,16 +19,16 @@ export class SysDictService {
 	) {}
 
 	/**
-	 * 批量同步启动阶段自动发现到的字典定义。
+	 * 批量同步启动阶段自动发现到的字典定义.
 	 *
-	 * 同步规则：
-	 * 1. 字典主表以 `dictCode` 作为身份标识；
-	 * 2. 字典项以 `hash` 判断是否与数据库完全一致；
-	 * 3. 同 `code` 但 `hash` 变化时执行更新；
-	 * 4. 新项直接新增。
+	 * 同步规则:
+	 * 1. 字典主表以 `dictCode` 作为身份标识;
+	 * 2. 字典项以 `hash` 判断是否与数据库完全一致;
+	 * 3. 同 `code` 但 `hash` 变化时执行更新;
+	 * 4. 新项直接新增.
 	 *
-	 * 当前实现不会主动删除数据库里“本次未出现”的旧字典项，
-	 * 这样可以避免在枚举收敛或临时缺失时误删已有数据。
+	 * 当前实现不会主动删除数据库里"本次未出现"的旧字典项,
+	 * 这样可以避免在枚举收敛或临时缺失时误删已有数据.
 	 */
 	async batchSyncDiscoveredDicts(records: Array<AspenGenDictRecord>) {
 		if (!records.length) {
@@ -119,7 +119,7 @@ export class SysDictService {
 		}
 
 		this.logger.log(
-			`自动字典同步完成，本次接收 ${normalizedRecords.length} 组字典，写入 ${savedDictList.length} 个字典，写入 ${dictItemSaveList.length} 个字典项`,
+			`自动字典同步完成,本次接收 ${normalizedRecords.length} 组字典,写入 ${savedDictList.length} 个字典,写入 ${dictItemSaveList.length} 个字典项`,
 		)
 	}
 
@@ -194,7 +194,7 @@ export class SysDictService {
 	}
 
 	/**
-	 * 合并同一批次中重复发现的字典记录，并按字典项 code 去重。
+	 * 合并同一批次中重复发现的字典记录,并按字典项 code 去重.
 	 */
 	private mergeDiscoveredDicts(records: Array<AspenGenDictRecord>) {
 		const map = new Map<

@@ -49,7 +49,7 @@ export class Application {
 		)
 		AppCtx.init(this.app)
 		this.config = this.app.get(ConfigService)
-		// 获取本机 IP，用于启动日志输出
+		// 获取本机 IP,用于启动日志输出
 		this.localIp = OsTool.getLocalIp()
 
 		const appConfig = this.config.getOrThrow("app", { infer: true })

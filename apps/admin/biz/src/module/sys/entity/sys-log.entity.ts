@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Brackets, Column, Entity, PrimaryGeneratedColumn, Repository } from "typeorm"
+import * as _ from "es-toolkit/compat"
 
-import { BaseRecordDb } from "@aspen/aspen-fram"
+import { AspenRule, AspenSummary, BasePage, BaseRecordDb } from "@aspen/aspen-fram"
 
 /*
  * ---------------------------------------------------------------
@@ -53,4 +54,41 @@ export class SysLogEntity extends BaseRecordDb {
 
 	@Column({ type: "varchar", length: 16, comment: "请求方法" })
 	uriMethod: string
+}
+
+/*
+ * ---------------------------------------------------------------
+ * ## 日志表-查询
+ * ---------------------------------------------------------------
+ */
+export class SysLogQueryDto extends BasePage {
+	@AspenSummary({ summary: "日志摘要/请求uri/ip", rule: AspenRule() })
+	quick?: string
+
+	@AspenSummary({ summary: "日志tag", rule: AspenRule() })
+	tag?: string
+
+	@AspenSummary({ summary: "请求方法", rule: AspenRule() })
+	uriMethod?: string
+
+	createQueryBuilder(repo: Repository<SysLogEntity>) {
+		const query = repo.createQueryBuilder("a")
+		if (!_.isEmpty(this.quick)) {
+			query.andWhere(
+				new Brackets((qb) => {
+					qb.where("a.summary LIKE :quick", { quick: `%${this.quick}%` })
+					qb.orWhere("a.uri LIKE :quick", { quick: `%${this.quick}%` })
+					qb.orWhere("a.ip LIKE :quick", { quick: `%${this.quick}%` })
+				}),
+			)
+		}
+		if (!_.isEmpty(this.tag)) {
+			query.andWhere("a.tag = :tag", { tag: this.tag })
+		}
+		if (!_.isEmpty(this.uriMethod)) {
+			query.andWhere("a.uri_method = :uriMethod", { uriMethod: this.uriMethod })
+		}
+		query.orderBy("a.create_at", "DESC").addOrderBy("a.log_code", "DESC")
+		return query
+	}
 }

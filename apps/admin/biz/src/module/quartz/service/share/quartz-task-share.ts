@@ -8,13 +8,13 @@ import { QuartzTaskEntity } from "../../entity"
 import { QuartzBullService } from "../quartz-bull-service"
 
 /**
- * 定时任务共享能力。
+ * 定时任务共享能力.
  *
- * 主要给以下场景复用：
- * - 任务是否存在；
- * - 任务名称/编码是否重复；
- * - 其他模块按 `taskCode` 主动触发一个系统任务；
- * - 其他模块在业务变更后要求重新同步某个任务调度。
+ * 主要给以下场景复用:
+ * - 任务是否存在;
+ * - 任务名称/编码是否重复;
+ * - 其他模块按 `taskCode` 主动触发一个系统任务;
+ * - 其他模块在业务变更后要求重新同步某个任务调度.
  */
 @Injectable()
 export class QuartzTaskShare {
@@ -25,7 +25,7 @@ export class QuartzTaskShare {
 	) {}
 
 	/**
-	 * 根据任务 id 获取任务。
+	 * 根据任务 id 获取任务.
 	 */
 	async getByTaskId(taskId: string) {
 		return await this.quartzTaskRepo.findOne({
@@ -37,7 +37,7 @@ export class QuartzTaskShare {
 	}
 
 	/**
-	 * 根据任务编码获取任务。
+	 * 根据任务编码获取任务.
 	 */
 	async getByTaskCode(taskCode: string) {
 		return await this.quartzTaskRepo.findOne({
@@ -49,7 +49,7 @@ export class QuartzTaskShare {
 	}
 
 	/**
-	 * 检查任务是否存在，不存在则抛出异常。
+	 * 检查任务是否存在,不存在则抛出异常.
 	 */
 	async checkThrowExist(taskId: string) {
 		const task = await this.getByTaskId(taskId)
@@ -60,7 +60,7 @@ export class QuartzTaskShare {
 	}
 
 	/**
-	 * 判断任务名称是否重复。
+	 * 判断任务名称是否重复.
 	 */
 	async isTaskNameDuplicate(entity: QuartzTaskEntity) {
 		const query = this.quartzTaskRepo.createQueryBuilder("task").where("task.task_name = :taskName", { taskName: entity.taskName })
@@ -71,7 +71,7 @@ export class QuartzTaskShare {
 	}
 
 	/**
-	 * 判断任务编码是否重复。
+	 * 判断任务编码是否重复.
 	 */
 	async isTaskCodeDuplicate(entity: QuartzTaskEntity) {
 		const query = this.quartzTaskRepo.createQueryBuilder("task").where("task.task_code = :taskCode", { taskCode: entity.taskCode })
@@ -82,11 +82,11 @@ export class QuartzTaskShare {
 	}
 
 	/**
-	 * 根据任务编码手动触发一次任务执行。
+	 * 根据任务编码手动触发一次任务执行.
 	 *
-	 * 该方法适合被其他业务模块直接调用，例如：
-	 * - 某个管理操作完成后，要求立即触发一次补偿任务；
-	 * - 某个配置更新后，需要重新执行一次同步任务。
+	 * 该方法适合被其他业务模块直接调用,例如:
+	 * - 某个管理操作完成后,要求立即触发一次补偿任务;
+	 * - 某个配置更新后,需要重新执行一次同步任务.
 	 */
 	async runByTaskCode(taskCode: string, requestPayload?: Record<string, any>) {
 		const task = await this.getByTaskCode(taskCode)
@@ -98,7 +98,7 @@ export class QuartzTaskShare {
 	}
 
 	/**
-	 * 重新同步某个任务的 BullMQ 调度配置。
+	 * 重新同步某个任务的 BullMQ 调度配置.
 	 */
 	async syncByTaskId(taskId: string) {
 		const task = await this.checkThrowExist(taskId)

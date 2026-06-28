@@ -146,7 +146,7 @@ const writeInternalLoggerMessage = (tag: string, level: "INFO" | "ERROR", messag
 export const createWinstonLogger = (appConfig: AspenConf.AppConf, loggerConfig: AspenConf.LoggerConf) => {
 	// 控制台彩色可读格式(开发友好)
 	const consoleFormat = format.combine(
-		// 不使用全局 colorize，避免影响对齐；改为在 printf 内对 level 上色
+		// 不使用全局 colorize,避免影响对齐;改为在 printf 内对 level 上色
 		format.timestamp({ format: "YYYY-MM-DD HH:mm:ss.SSS" }),
 		format.errors({ stack: true }),
 		format.printf(({ timestamp, level, message, context, ...rest }) => {
@@ -157,7 +157,7 @@ export const createWinstonLogger = (appConfig: AspenConf.AppConf, loggerConfig: 
 		}),
 	)
 
-	// 文件 JSON 格式（便于 Promtail/Loki 采集）
+	// 文件 JSON 格式(便于 Promtail/Loki 采集)
 	const jsonFormat = format.combine(format.timestamp({ format: "YYYY-MM-DD HH:mm:ss.SSS" }), format.errors({ stack: true }), format.json())
 
 	// 兼容 default 导出与命名空间导出

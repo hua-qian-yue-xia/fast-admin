@@ -4,7 +4,7 @@ import { In, Repository } from "typeorm"
 
 import { AspenTagRecord } from "@aspen/aspen-fram"
 
-import { SysApiEntity, SysApiTagRelEntity } from "../entity"
+import { SysApiEntity, SysApiQueryDto, SysApiTagRelEntity } from "../entity"
 
 @Injectable()
 export class SysApiService {
@@ -18,7 +18,28 @@ export class SysApiService {
 	) {}
 
 	/**
-	 * 批量同步启动阶段发现到的接口标签。
+	 * 接口分页查询.
+	 */
+	async page(dto: SysApiQueryDto) {
+		return dto.createQueryBuilder(this.sysApiRepo).pageMany(dto.getSimplePageObj())
+	}
+
+	/**
+	 * 根据接口主键查询接口详情.
+	 */
+	async getByApiId(apiId: string) {
+		return this.sysApiRepo.findOne({
+			where: {
+				id: apiId,
+			},
+			relations: {
+				tagList: true,
+			},
+		})
+	}
+
+	/**
+	 * 批量同步启动阶段发现到的接口标签.
 	 */
 	async batchSyncDiscoveredApiTags(records: Array<AspenTagRecord>) {
 		if (!records.length) {
@@ -90,11 +111,11 @@ export class SysApiService {
 		if (saveList.length) {
 			await this.sysApiRepo.save(saveList)
 		}
-		this.logger.log(`接口标签批量同步完成，本次接收 ${normalizedRecords.length} 条，实际写入 ${saveList.length} 条`)
+		this.logger.log(`接口标签批量同步完成,本次接收 ${normalizedRecords.length} 条,实际写入 ${saveList.length} 条`)
 	}
 
 	/**
-	 * 合并同一接口的多次发现结果，并去重标签。
+	 * 合并同一接口的多次发现结果,并去重标签.
 	 */
 	private mergeRecords(records: Array<AspenTagRecord>) {
 		const map = new Map<

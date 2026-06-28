@@ -73,7 +73,7 @@ type MethodReqOptions = Omit<CreateReqOptions, "method">
 
 /******************** end type end ********************/
 
-// 用于树状结构的递归 children 模型：为所有层级统一增加 children 属性
+// 用于树状结构的递归 children 模型:为所有层级统一增加 children 属性
 class SwaggerTreeNode {
 	@ApiProperty({ type: () => [SwaggerTreeNode], description: "子节点", default: [] })
 	children: any[]

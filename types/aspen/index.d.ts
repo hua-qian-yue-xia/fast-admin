@@ -4,6 +4,7 @@ declare namespace AspenConf {
 		redis: RedisConf
 		database: DatabaseConf
 		jwt: JwtConf
+		localFile: LocalFileConf
 		logger: LoggerConf
 		tempo: TempoConf
 		prometheus: PrometheusConf
@@ -103,13 +104,13 @@ declare namespace AspenConf {
 		database?: string
 		/**
 		 * 每次建立连接时删除架构
-		 * 请注意此选项，不要在生产环境中使用它，否则将丢失所有生产数据。但是此选项在调试和开发期间非常有用
+		 * 请注意此选项,不要在生产环境中使用它,否则将丢失所有生产数据.但是此选项在调试和开发期间非常有用
 		 * @define false
 		 */
 		dropSchema?: boolean
 		/**
 		 * 是否在每次应用程序启动时自动创建数据库架构
-		 * 请注意此选项，不要在生产环境中使用它，否则将丢失所有生产数据。但是此选项在调试和开发期间非常有用
+		 * 请注意此选项,不要在生产环境中使用它,否则将丢失所有生产数据.但是此选项在调试和开发期间非常有用
 		 * @define false
 		 */
 		synchronize?: boolean
@@ -132,6 +133,24 @@ declare namespace AspenConf {
 		 * @default '7D'
 		 */
 		refreshExpiresIn?: import("ms").StringValue
+	}
+
+	interface LocalFileConf {
+		/**
+		 * 本地文件存储路径
+		 * @default '/upload'
+		 */
+		basePath?: string
+		/**
+		 * 分块文件存储路径
+		 * @default '/chunks'
+		 */
+		chunkPath?: string
+		/**
+		 * 最大文件大小(M)
+		 * @default 20
+		 */
+		maxFileSize?: number
 	}
 
 	type LoggerConf = {
@@ -182,19 +201,19 @@ declare namespace AspenConf {
 		enabled?: boolean
 
 		/**
-		 * OTLP HTTP traces 端点。
-		 * 既支持完整路径 `http://127.0.0.1:4318/v1/traces`，
-		 * 也支持基础地址 `http://127.0.0.1:4318`。
+		 * OTLP HTTP traces 端点.
+		 * 既支持完整路径 `http://127.0.0.1:4318/v1/traces`,
+		 * 也支持基础地址 `http://127.0.0.1:4318`.
 		 */
 		otlpHttpUrl?: string
 
 		/**
-		 * 自定义上报请求头。
-		 * 常用于 Grafana Cloud / Gateway Token 鉴权。
+		 * 自定义上报请求头.
+		 * 常用于 Grafana Cloud / Gateway Token 鉴权.
 		 */
 		headers?: Record<string, string>
 		/**
-		 * OTLP 请求超时时间，单位毫秒
+		 * OTLP 请求超时时间,单位毫秒
 		 * @default 10000
 		 */
 		timeoutMs?: number
@@ -221,7 +240,7 @@ declare namespace AspenConf {
 
 		/**
 		 * prom-client 默认指标前缀
-		 * 例如设置为 `node_` 后，会生成 `node_process_cpu_seconds_total`
+		 * 例如设置为 `node_` 后,会生成 `node_process_cpu_seconds_total`
 		 */
 		defaultMetricPrefix?: string
 
@@ -232,7 +251,7 @@ declare namespace AspenConf {
 		customMetricPrefix?: string
 
 		/**
-		 * 默认指标标签，会与 service/version/environment 自动标签合并
+		 * 默认指标标签,会与 service/version/environment 自动标签合并
 		 */
 		defaultLabels?: Record<string, string>
 	}

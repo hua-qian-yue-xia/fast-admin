@@ -5,15 +5,15 @@ import { QuartzTaskEntity, QuartzTaskQueryDto, QuartzTaskSaveDto } from "../enti
 import { QuartzTaskService } from "../service"
 
 /**
- * 定时任务控制器。
+ * 定时任务控制器.
  *
- * 主要面向后台任务管理界面，覆盖：
- * - 任务分页与详情；
- * - 新增、编辑、删除；
- * - 启停控制；
- * - 立即执行；
- * - 调度同步；
- * - 已注册处理器查询。
+ * 主要面向后台任务管理界面,覆盖:
+ * - 任务分页与详情;
+ * - 新增,编辑,删除;
+ * - 启停控制;
+ * - 立即执行;
+ * - 调度同步;
+ * - 已注册处理器查询.
  */
 @router.controller({ summary: "定时任务管理", prefix: "/quartz/task" })
 export class QuartzTaskController {

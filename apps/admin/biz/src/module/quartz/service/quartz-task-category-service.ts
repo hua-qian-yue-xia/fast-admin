@@ -8,13 +8,13 @@ import { QuartzTaskCategoryEntity, QuartzTaskCategoryQueryDto, QuartzTaskCategor
 import { QuartzTaskCategoryShare } from "./share/quartz-task-category-share"
 
 /**
- * 定时任务分类服务。
+ * 定时任务分类服务.
  *
- * 该服务负责分类维度的后台管理能力：
- * - 分页查询；
- * - 详情查询；
- * - 新增/修改；
- * - 删除前引用校验。
+ * 该服务负责分类维度的后台管理能力:
+ * - 分页查询;
+ * - 详情查询;
+ * - 新增/修改;
+ * - 删除前引用校验.
  */
 @Injectable()
 export class QuartzTaskCategoryService {
@@ -27,23 +27,23 @@ export class QuartzTaskCategoryService {
 	) {}
 
 	/**
-	 * 分类分页。
+	 * 分类分页.
 	 */
 	async page(dto: QuartzTaskCategoryQueryDto) {
 		return await dto.createQueryBuilder(this.quartzTaskCategoryRepo).pageMany(dto.getSimplePageObj())
 	}
 
 	/**
-	 * 根据分类 id 查询详情。
+	 * 根据分类 id 查询详情.
 	 */
 	async getByCategoryId(categoryId: string) {
 		return await this.quartzTaskCategoryRepo.findOneBy({ categoryId })
 	}
 
 	/**
-	 * 查询全部分类。
+	 * 查询全部分类.
 	 *
-	 * 主要给后台下拉框使用，因此返回完整列表即可。
+	 * 主要给后台下拉框使用,因此返回完整列表即可.
 	 */
 	async all() {
 		return await this.quartzTaskCategoryRepo.find({
@@ -55,7 +55,7 @@ export class QuartzTaskCategoryService {
 	}
 
 	/**
-	 * 新增分类。
+	 * 新增分类.
 	 */
 	async save(dto: QuartzTaskCategorySaveDto) {
 		const entity = dto.toEntity()
@@ -66,7 +66,7 @@ export class QuartzTaskCategoryService {
 	}
 
 	/**
-	 * 修改分类。
+	 * 修改分类.
 	 */
 	async edit(dto: QuartzTaskCategorySaveDto) {
 		if (!dto.categoryId) {
@@ -82,9 +82,9 @@ export class QuartzTaskCategoryService {
 	}
 
 	/**
-	 * 批量删除分类。
+	 * 批量删除分类.
 	 *
-	 * 删除前会校验是否仍被任务引用，避免出现脏数据。
+	 * 删除前会校验是否仍被任务引用,避免出现脏数据.
 	 */
 	async delByIds(categoryIds: Array<string>) {
 		const categoryList = await this.quartzTaskCategoryRepo.find({
@@ -100,7 +100,7 @@ export class QuartzTaskCategoryService {
 			},
 		})
 		if (usedCount > 0) {
-			throw new exception.validator("存在已绑定任务的分类，不能直接删除")
+			throw new exception.validator("存在已绑定任务的分类,不能直接删除")
 		}
 
 		const { affected } = await this.quartzTaskCategoryRepo.softDelete(categoryList.map((item) => item.categoryId))

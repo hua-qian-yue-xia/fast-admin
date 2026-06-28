@@ -2,7 +2,7 @@ import { Brackets, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, Prim
 import { plainToInstance } from "class-transformer"
 import * as _ from "es-toolkit/compat"
 
-import { BaseRecordDb, AspenSummary, AspenRule } from "@aspen/aspen-fram"
+import { BaseRecordDb, AspenSummary, AspenRule, BasePage } from "@aspen/aspen-fram"
 
 import { SysFileConfigEntity } from "./sys-file-config.entity"
 import { SysFileCategoryEntity } from "./sys-file-category.entity"
@@ -85,7 +85,7 @@ export class FrameFileSaveDto {
  * ## 文件内容存储-查询
  * ---------------------------------------------------------------
  */
-export class SysFileQueryDto {
+export class SysFileQueryDto extends BasePage {
 	@AspenSummary({ summary: "文件名/文件路径/文件完整路径", rule: AspenRule() })
 	quick?: string
 

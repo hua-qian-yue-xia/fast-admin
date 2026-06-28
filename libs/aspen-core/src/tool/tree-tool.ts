@@ -10,17 +10,17 @@ export type BuildTreeOptions<T, K extends string = "children", X = unknown> = {
 	idKey?: keyof T & string
 	parentIdKey?: keyof T & string
 	childrenKey?: K
-	// 根父ID的值，默认 null/undefined/0 之一视为根
+	// 根父ID的值,默认 null/undefined/0 之一视为根
 	rootParentValue?: unknown
 	sort?: (a: T, b: T) => number
-	// 为每个节点附加额外信息，赋值到 node.extra
+	// 为每个节点附加额外信息,赋值到 node.extra
 	extra?: (item: T) => X
-	// 构建节点时剔除的字段（不要剔除 idKey/parentIdKey）
+	// 构建节点时剔除的字段(不要剔除 idKey/parentIdKey)
 	excludeKeys?: Array<keyof T & string>
 }
 
 export abstract class TreeTool {
-	// 扁平数组转树：O(n)
+	// 扁平数组转树:O(n)
 	static toTree<T extends Record<string, any>, K extends string = "children", X = unknown>(
 		items: readonly T[],
 		opts: BuildTreeOptions<T, K, X> = {},
@@ -29,7 +29,7 @@ export abstract class TreeTool {
 		const parentIdKey = opts.parentIdKey ?? "parentId"
 		const childrenKey = opts.childrenKey ?? ("children" as K)
 
-		// 初始化每个节点的 children，并支持剔除字段
+		// 初始化每个节点的 children,并支持剔除字段
 		const nodes = items.map((item) => {
 			const base: any = { ...item }
 			if (opts.excludeKeys?.length) {
@@ -62,7 +62,7 @@ export abstract class TreeTool {
 				if (parent) {
 					parent[childrenKey].push(n)
 				} else {
-					// 如果父节点不存在，视为根，避免数据丢失
+					// 如果父节点不存在,视为根,避免数据丢失
 					roots.push(n as TreeNode<T, K, X>)
 				}
 			}
@@ -152,7 +152,7 @@ export abstract class TreeTool {
 		return rec(tree)
 	}
 
-	// 映射树(结构保持，节点转换)
+	// 映射树(结构保持,节点转换)
 	static map<T extends Record<string, any>, R extends Record<string, any>, K extends string = "children", X = unknown>(
 		tree: Array<TreeNode<T, K, X>>,
 		mapFn: (n: TreeNode<T, K, X>) => R,

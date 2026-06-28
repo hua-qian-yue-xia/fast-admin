@@ -76,7 +76,7 @@
                 "type": "prometheus",
                 "uid": "${DS_MIMIR}"
             },
-            "description": "平均已使用内存，单位为 MB",
+            "description": "平均已使用内存,单位为 MB",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -149,7 +149,7 @@
                     "refId": "A"
                 }
             ],
-            "title": "平均内存使用量（MB）",
+            "title": "平均内存使用量(MB)",
             "type": "heatmap"
         },
         {

@@ -9,10 +9,10 @@ import { exception } from "../../exception/exception"
 
 const logger = new Logger("Aspen Cache")
 
-// 工具类型：如果 T 是 Promise 包裹的类型，则提取内部类型，否则返回 T
+// 工具类型:如果 T 是 Promise 包裹的类型,则提取内部类型,否则返回 T
 type UnwrapPromise<T> = T extends Promise<infer U> ? U : T
 
-// 修改后的 ReturnType，自动去掉 Promise 包裹
+// 修改后的 ReturnType,自动去掉 Promise 包裹
 type UnwrappedReturnType<T extends (...args: any[]) => any> = UnwrapPromise<ReturnType<T>>
 
 type CacheBaseValue<T extends (...args: any[]) => any> = (args: Parameters<T>, result: UnwrappedReturnType<T>) => string
@@ -103,7 +103,7 @@ const getRedisTool = async (): Promise<RedisTool> => {
 }
 
 /**
- * 根据方法对其返回结果进行缓存，下次请求时，如果缓存存在，则直接读取缓存数据返回；如果缓存不存在，则执行方法，并把返回的结果存入缓存中
+ * 根据方法对其返回结果进行缓存,下次请求时,如果缓存存在,则直接读取缓存数据返回;如果缓存不存在,则执行方法,并把返回的结果存入缓存中
  * 一般用在查询方法上
  */
 function AspenCacheable<T extends (...args: any[]) => any>(cacheables: CacheableOption<T> | Array<CacheableOption<T>>) {
@@ -154,7 +154,7 @@ function AspenCacheable<T extends (...args: any[]) => any>(cacheables: Cacheable
 }
 
 /**
- * 使用该注解标志的方法，每次都会执行，并将结果存入指定的缓存中。其他方法可以直接从响应的缓存中读取缓存数据，而不需要再去查询数据库
+ * 使用该注解标志的方法,每次都会执行,并将结果存入指定的缓存中.其他方法可以直接从响应的缓存中读取缓存数据,而不需要再去查询数据库
  * 一般用在新增方法上
  */
 function AspenCachePut<T extends (...args: any[]) => any>(cachePuts: CachePutOption<T> | Array<CachePutOption<T>>) {
@@ -193,7 +193,7 @@ function AspenCachePut<T extends (...args: any[]) => any>(cachePuts: CachePutOpt
 }
 
 /**
- * 使用该注解标志的方法，会清空指定的缓存
+ * 使用该注解标志的方法,会清空指定的缓存
  * 一般用在更新或者删除方法上
  */
 function AspenCacheEvict<T extends (...args: any[]) => any>(cacheEvicts: CacheEvictOption<T> | Array<CacheEvictOption<T>>) {

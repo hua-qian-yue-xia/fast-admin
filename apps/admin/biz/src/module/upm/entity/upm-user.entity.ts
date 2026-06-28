@@ -56,7 +56,7 @@ export class UpmUserEntity extends BaseUserDb {
 }
 
 export class UpmUserQueryDto {
-	@AspenSummary({ summary: "登录名、用户昵称、用户手机号", rule: AspenRule() })
+	@AspenSummary({ summary: "登录名,用户昵称,用户手机号", rule: AspenRule() })
 	quick?: string
 
 	@AspenSummary({ summary: "是否启用", rule: AspenRule() })

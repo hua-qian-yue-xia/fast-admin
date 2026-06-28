@@ -86,7 +86,7 @@ export class UpmMenuQueryDto extends BasePage {
 	@AspenSummary({ summary: "菜单父id", rule: AspenRule() })
 	parentId?: string
 
-	@AspenSummary({ summary: "菜单名、路由地址", rule: AspenRule() })
+	@AspenSummary({ summary: "菜单名,路由地址", rule: AspenRule() })
 	quick?: string
 
 	@AspenSummary({ summary: "菜单类型", rule: AspenRule() })

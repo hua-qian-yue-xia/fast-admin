@@ -68,7 +68,7 @@ export class SysDictItemQueryDto extends BasePage {
 	@AspenSummary({ summary: "字典id", rule: AspenRule() })
 	dictId?: string
 
-	@AspenSummary({ summary: "字典编码、字典值", rule: AspenRule() })
+	@AspenSummary({ summary: "字典编码,字典值", rule: AspenRule() })
 	quick?: string
 
 	createQueryBuilder(repo: Repository<SysDictItemEntity>) {

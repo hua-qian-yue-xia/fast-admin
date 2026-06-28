@@ -39,7 +39,7 @@ export class RedisTool {
 	}
 
 	/**
-	 * 根据通配符删除缓存（使用SCAN，不阻塞）
+	 * 根据通配符删除缓存(使用SCAN,不阻塞)
 	 * 例如:pattern = "sys:user:id:*"
 	 */
 	async delByPattern(patterns: string | Array<string>, count = 1000): Promise<number> {

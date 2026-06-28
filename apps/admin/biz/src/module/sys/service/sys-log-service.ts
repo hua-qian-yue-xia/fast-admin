@@ -4,7 +4,7 @@ import { Repository } from "typeorm"
 
 import { AspenLogRecord } from "@aspen/aspen-fram"
 
-import { SysLogEntity } from "../entity"
+import { SysLogEntity, SysLogQueryDto } from "../entity"
 
 @Injectable()
 export class SysLogService {
@@ -13,7 +13,25 @@ export class SysLogService {
 	constructor(@InjectRepository(SysLogEntity) private readonly sysLogRepo: Repository<SysLogEntity>) {}
 
 	/**
-	 * 批量保存运行期采集到的接口日志。
+	 * 系统日志分页查询.
+	 */
+	async page(dto: SysLogQueryDto) {
+		return dto.createQueryBuilder(this.sysLogRepo).pageMany(dto.getSimplePageObj())
+	}
+
+	/**
+	 * 根据日志主键查询详情.
+	 */
+	async getByLogCode(logCode: string) {
+		return this.sysLogRepo.findOne({
+			where: {
+				logCode,
+			},
+		})
+	}
+
+	/**
+	 * 批量保存运行期采集到的接口日志.
 	 */
 	async batchSaveLogs(records: Array<AspenLogRecord>) {
 		if (!records.length) {
@@ -45,6 +63,6 @@ export class SysLogService {
 		})
 
 		await this.sysLogRepo.save(entityList)
-		this.logger.log(`系统日志批量写入完成，本次写入 ${entityList.length} 条`)
+		this.logger.log(`系统日志批量写入完成,本次写入 ${entityList.length} 条`)
 	}
 }

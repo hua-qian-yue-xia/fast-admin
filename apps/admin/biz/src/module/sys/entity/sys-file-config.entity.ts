@@ -2,7 +2,7 @@ import { Brackets, Column, Entity, Index, OneToMany, PrimaryGeneratedColumn, Rep
 import { plainToInstance } from "class-transformer"
 import * as _ from "es-toolkit/compat"
 
-import { AspenRule, AspenSummary, BaseRecordDb, comEnums } from "@aspen/aspen-fram"
+import { AspenRule, AspenSummary, BasePage, BaseRecordDb, comEnums } from "@aspen/aspen-fram"
 
 import { SysFileEntity } from "./sys-file.entity"
 
@@ -57,7 +57,7 @@ export class SysFileConfigEntity extends BaseRecordDb {
  * ## 文件配置管理-新增
  * ---------------------------------------------------------------
  */
-export class FrameFileConfigSaveDto {
+export class SysFileConfigSaveDto {
 	@AspenSummary({ summary: "文件配置id" })
 	configId?: string
 
@@ -89,7 +89,7 @@ export class FrameFileConfigSaveDto {
  * ## 文件配置管理-查询
  * ---------------------------------------------------------------
  */
-export class SysFileConfigQueryDto {
+export class SysFileConfigQueryDto extends BasePage {
 	@AspenSummary({ summary: "配置名", rule: AspenRule() })
 	quick?: string
 

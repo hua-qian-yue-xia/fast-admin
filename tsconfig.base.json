@@ -12,9 +12,6 @@
 			"apps/*": [
 				"./apps/*"
 			],
-			"libs/*": [
-				"./libs/*"
-			],
 			"@aspen/aspen-core": [
 				"libs/aspen-core/src"
 			],

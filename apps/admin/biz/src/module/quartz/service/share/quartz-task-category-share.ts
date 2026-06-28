@@ -7,12 +7,12 @@ import { exception } from "@aspen/aspen-fram"
 import { QuartzTaskCategoryEntity } from "../../entity"
 
 /**
- * 定时任务分类共享能力。
+ * 定时任务分类共享能力.
  *
- * 这里封装的是“分类维度”的公共校验逻辑，
- * 便于 service 和其他模块复用，避免重复写：
- * - 分类是否存在；
- * - 分类名称是否重复。
+ * 这里封装的是"分类维度"的公共校验逻辑,
+ * 便于 service 和其他模块复用,避免重复写:
+ * - 分类是否存在;
+ * - 分类名称是否重复.
  */
 @Injectable()
 export class QuartzTaskCategoryShare {
@@ -22,7 +22,7 @@ export class QuartzTaskCategoryShare {
 	) {}
 
 	/**
-	 * 检查分类是否存在，不存在则直接抛出异常。
+	 * 检查分类是否存在,不存在则直接抛出异常.
 	 */
 	async checkThrowExist(categoryId: string) {
 		const category = await this.quartzTaskCategoryRepo.findOneBy({ categoryId })
@@ -33,9 +33,9 @@ export class QuartzTaskCategoryShare {
 	}
 
 	/**
-	 * 判断分类名称是否重复。
+	 * 判断分类名称是否重复.
 	 *
-	 * 更新场景下会自动排除当前记录自身。
+	 * 更新场景下会自动排除当前记录自身.
 	 */
 	async isCategoryNameDuplicate(entity: QuartzTaskCategoryEntity): Promise<boolean> {
 		const query = this.quartzTaskCategoryRepo

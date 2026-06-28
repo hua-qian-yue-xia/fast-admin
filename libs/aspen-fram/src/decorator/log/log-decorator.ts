@@ -72,22 +72,22 @@ export interface AspenLogChange {
 	saveLogger: (options: LogOption, request: FastifyRequest, res: any, error: any) => void
 }
 
-// Node.js 原生可读流。
+// Node.js 原生可读流.
 const isReadableStream = (value: unknown): value is Readable => {
 	return value instanceof Readable
 }
 
-// 兼容实现了 pipe() 的流式对象。
+// 兼容实现了 pipe() 的流式对象.
 const isStreamLikeObject = (value: unknown): value is { pipe: (...args: Array<any>) => any } => {
 	return typeof value === "object" && value !== null && typeof (value as { pipe?: unknown }).pipe === "function"
 }
 
-// 兼容 Nest StreamableFile 这类通过 getStream() 暴露流的对象。
+// 兼容 Nest StreamableFile 这类通过 getStream() 暴露流的对象.
 const isStreamableFileLike = (value: unknown): value is { getStream: () => unknown } => {
 	return typeof value === "object" && value !== null && typeof (value as { getStream?: unknown }).getStream === "function"
 }
 
-// 兼容常见上传文件对象，只记录文件元信息，不记录文件内容本身。
+// 兼容常见上传文件对象,只记录文件元信息,不记录文件内容本身.
 const isUploadFileLikeObject = (
 	value: unknown,
 ): value is { filename?: string; mimetype?: string; encoding?: string; file?: unknown; filepath?: string } => {
@@ -105,7 +105,7 @@ const isUploadFileLikeObject = (
 	)
 }
 
-// 统一做安全序列化，流、文件、二进制对象只记录元信息，避免日志对象过大或中断主流程。
+// 统一做安全序列化,流,文件,二进制对象只记录元信息,避免日志对象过大或中断主流程.
 const stringifySafe = (value: any): string | undefined => {
 	if (value == null) {
 		return undefined
@@ -153,16 +153,16 @@ export class AspenLogInterceptor implements NestInterceptor {
 
 		return next.handle().pipe(
 			tap((res) => {
-				// 成功响应体在 finalize 阶段统一写入日志。
+				// 成功响应体在 finalize 阶段统一写入日志.
 				responseData = res
 			}),
 			catchError((error) => {
-				// 异常不在这里吞掉，只缓存后继续向上抛出。
+				// 异常不在这里吞掉,只缓存后继续向上抛出.
 				errorData = error
 				return throwError(() => error)
 			}),
 			finalize(() => {
-				// 拦截器只负责采集统一日志模型并发布事件,真正的存储由业务模块自行监听处理。
+				// 拦截器只负责采集统一日志模型并发布事件,真正的存储由业务模块自行监听处理.
 				const record: AspenLogRecord = {
 					tag: logOption.tag,
 					summary: logOption.summary,

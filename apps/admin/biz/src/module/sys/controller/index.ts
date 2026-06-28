@@ -1,6 +1,7 @@
 export * from "./sys-api-controller"
 export * from "./sys-dict-controller"
 export * from "./sys-dict-item-controller"
+export * from "./sys-file-category-controller"
 export * from "./sys-file-config-controller"
 export * from "./sys-file-controller"
 export * from "./sys-log-controller"

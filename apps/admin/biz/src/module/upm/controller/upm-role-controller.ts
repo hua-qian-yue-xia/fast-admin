@@ -65,7 +65,7 @@ export class UpmRoleController {
 	}
 
 	@router.post({
-		summary: "新增角色(限流、日志)",
+		summary: "新增角色(限流,日志)",
 		router: "",
 		log: {
 			tag: "INSERT",
@@ -80,7 +80,7 @@ export class UpmRoleController {
 	}
 
 	@router.put({
-		summary: "修改角色(限流、日志)",
+		summary: "修改角色(限流,日志)",
 		router: "",
 	})
 	async edit(@Body() dto: UpmRoleSaveDto) {

@@ -28,6 +28,11 @@ export const DEFAULT_CONF: AspenConf.Application = {
 		accessExpiresIn: "1D",
 		refreshExpiresIn: "7D",
 	},
+	localFile: {
+		basePath: "/upload",
+		chunkPath: "/chunks",
+		maxFileSize: 20,
+	},
 	logger: {
 		level: "",
 		zippedArchive: true,

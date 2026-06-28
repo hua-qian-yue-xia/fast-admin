@@ -56,11 +56,11 @@ export enum HttpCodeEnum {
 	 */
 	UNAUTHORIZED = 401,
 	/**
-	 * 访问受限，授权过期
+	 * 访问受限,授权过期
 	 */
 	FORBIDDEN = 403,
 	/**
-	 * 资源，服务未找到
+	 * 资源,服务未找到
 	 */
 	NOT_FOUND = 404,
 	/**

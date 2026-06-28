@@ -38,7 +38,7 @@ export class RedisCacheModule {
 						const redisConfig = config.get("redis", { infer: true })
 
 						if (!redisConfig) {
-							logger.warn("未找到 redis 配置，跳过 Redis 连接初始化")
+							logger.warn("未找到 redis 配置,跳过 Redis 连接初始化")
 							return {}
 						}
 

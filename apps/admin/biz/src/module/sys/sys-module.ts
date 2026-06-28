@@ -1,38 +1,77 @@
 import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
 
-// entity
-import { SysApiEntity, SysApiTagRelEntity } from "./entity"
-import { SysDictEntity } from "./entity"
-import { SysDictItemEntity } from "./entity"
-import { SysLogEntity } from "./entity"
+import { SysApiEvent, SysDictEvent, SysLogEvent } from "./common"
+import {
+	SysApiController,
+	SysDictController,
+	SysDictItemController,
+	SysFileCategoryController,
+	SysFileConfigController,
+	SysFileController,
+	SysLogController,
+} from "./controller"
+import {
+	SysApiEntity,
+	SysApiTagRelEntity,
+	SysDictEntity,
+	SysDictItemEntity,
+	SysFileCategoryEntity,
+	SysFileConfigEntity,
+	SysFileEntity,
+	SysLogEntity,
+} from "./entity"
+import {
+	FileService,
+	SysApiService,
+	SysDictItemService,
+	SysDictService,
+	SysFileCategoryService,
+	SysFileConfigService,
+	SysFileService,
+	SysLogService,
+} from "./service"
+import { SysFileConfigShare } from "./service/share"
 
-// controller
-import { SysApiController } from "./controller"
-import { SysDictController } from "./controller"
-import { SysDictItemController } from "./controller"
-import { SysFileConfigController } from "./controller"
-import { SysFileController } from "./controller"
-import { SysLogController } from "./controller"
+const entities = [
+	SysApiEntity,
+	SysApiTagRelEntity,
+	SysDictEntity,
+	SysDictItemEntity,
+	SysFileCategoryEntity,
+	SysFileConfigEntity,
+	SysFileEntity,
+	SysLogEntity,
+]
 
-// service
-import { SysApiService } from "./service"
-import { SysDictService } from "./service"
-import { SysDictItemService } from "./service"
-import { SysFileConfigService } from "./service"
-import { SysFileService } from "./service"
-import { SysLogService } from "./service"
-const services = [SysApiService, SysDictService, SysDictItemService, SysFileConfigService, SysFileService, SysLogService]
+const controllers = [
+	SysApiController,
+	SysDictController,
+	SysDictItemController,
+	SysFileCategoryController,
+	SysFileConfigController,
+	SysFileController,
+	SysLogController,
+]
 
-// event
-import { SysApiEvent } from "./common"
-import { SysDictEvent } from "./common"
-import { SysLogEvent } from "./common"
+const services = [
+	SysApiService,
+	SysDictService,
+	SysDictItemService,
+	SysFileCategoryService,
+	SysFileConfigService,
+	FileService,
+	SysFileService,
+	SysLogService,
+]
+
+const shares = [SysFileConfigShare]
+
 const events = [SysApiEvent, SysDictEvent, SysLogEvent]
 
 @Module({
-	imports: [TypeOrmModule.forFeature([SysApiEntity, SysApiTagRelEntity, SysDictItemEntity, SysDictEntity, SysLogEntity])],
-	providers: [...services, ...events],
-	controllers: [SysApiController, SysDictController, SysDictItemController, SysFileConfigController, SysFileController, SysLogController],
+	imports: [TypeOrmModule.forFeature(entities)],
+	providers: [...services, ...events, ...shares],
+	controllers,
 })
 export class SysModule {}
