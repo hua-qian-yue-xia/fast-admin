@@ -16,7 +16,7 @@ import {
 	quartzEnums,
 } from "../common"
 import { QuartzTaskEntity, QuartzTaskLogEntity } from "../entity"
-import { QuartzHandlerShare, QuartzJobData } from "../share/quartz-handler-share"
+import { QuartzHandlerShare, QuartzJobData } from "./share/quartz-handler-share"
 
 type QuartzTriggerType = (typeof quartzEnums.triggerType.named)[keyof typeof quartzEnums.triggerType.named]["raw"]["code"]
 

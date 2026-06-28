@@ -6,9 +6,9 @@ import { exception } from "@aspen/aspen-fram"
 
 import { quartzEnums } from "../common"
 import { QuartzTaskEntity, QuartzTaskQueryDto, QuartzTaskSaveDto } from "../entity"
-import { QuartzHandlerShare } from "../share/quartz-handler-share"
-import { QuartzTaskCategoryShare } from "../share/quartz-task-category-share"
-import { QuartzTaskShare } from "../share/quartz-task-share"
+import { QuartzHandlerShare } from "./share/quartz-handler-share"
+import { QuartzTaskCategoryShare } from "./share/quartz-task-category-share"
+import { QuartzTaskShare } from "./share/quartz-task-share"
 import { QuartzBullService } from "./quartz-bull-service"
 
 /**

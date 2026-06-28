@@ -1,8 +1,8 @@
 import { Injectable, Logger } from "@nestjs/common"
 import { Job } from "bullmq"
 
-import { QuartzTaskEntity } from "../entity"
-import { quartzEnums } from "../common"
+import { QuartzTaskEntity } from "../../entity"
+import { quartzEnums } from "../../common"
 
 type QuartzTriggerType = (typeof quartzEnums.triggerType.named)[keyof typeof quartzEnums.triggerType.named]["raw"]["code"]
 

@@ -19,9 +19,9 @@ import { QuartzBullService } from "./service"
 const services = [QuartzTaskCategoryService, QuartzTaskService, QuartzTaskLogService, QuartzBullService]
 
 // share
-import { QuartzHandlerShare } from "./share"
-import { QuartzTaskCategoryShare } from "./share"
-import { QuartzTaskShare } from "./share"
+import { QuartzHandlerShare } from "./service/share"
+import { QuartzTaskCategoryShare } from "./service/share"
+import { QuartzTaskShare } from "./service/share"
 const share = [QuartzHandlerShare, QuartzTaskCategoryShare, QuartzTaskShare]
 
 @Module({

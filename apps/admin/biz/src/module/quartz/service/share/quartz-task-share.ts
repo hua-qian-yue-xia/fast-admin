@@ -4,8 +4,8 @@ import { Repository } from "typeorm"
 
 import { exception } from "@aspen/aspen-fram"
 
-import { QuartzTaskEntity } from "../entity"
-import { QuartzBullService } from "../service/quartz-bull-service"
+import { QuartzTaskEntity } from "../../entity"
+import { QuartzBullService } from "../quartz-bull-service"
 
 /**
  * 定时任务共享能力。

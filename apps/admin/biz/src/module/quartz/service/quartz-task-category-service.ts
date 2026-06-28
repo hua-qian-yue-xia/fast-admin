@@ -5,7 +5,7 @@ import { In, Repository } from "typeorm"
 import { exception } from "@aspen/aspen-fram"
 
 import { QuartzTaskCategoryEntity, QuartzTaskCategoryQueryDto, QuartzTaskCategorySaveDto, QuartzTaskEntity } from "../entity"
-import { QuartzTaskCategoryShare } from "../share/quartz-task-category-share"
+import { QuartzTaskCategoryShare } from "./share/quartz-task-category-share"
 
 /**
  * 定时任务分类服务。

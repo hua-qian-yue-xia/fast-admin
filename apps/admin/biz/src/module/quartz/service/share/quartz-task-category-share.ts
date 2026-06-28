@@ -4,7 +4,7 @@ import { Repository } from "typeorm"
 
 import { exception } from "@aspen/aspen-fram"
 
-import { QuartzTaskCategoryEntity } from "../entity"
+import { QuartzTaskCategoryEntity } from "../../entity"
 
 /**
  * 定时任务分类共享能力。
